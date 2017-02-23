@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_margin="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="HOME"
+            android:textSize="60sp"
+            android:textStyle="bold" />
+
+        <!--
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardHomeIncidents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            app:cardElevation="4dp">
+
+            <Button
+                android:id="@+id/btnHomeIncidents"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="146dp"
+                android:layout_height="100dp"
+                android:drawableBottom="@drawable/ic_image_black"
+                android:gravity="center"
+                android:text="@string/btnHomeIncidents" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardHomeDiary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="24dp"
+            app:cardElevation="4dp">
+
+            <Button
+                android:id="@+id/btnHomeDiary"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="146dp"
+                android:layout_height="100dp"
+                android:drawableBottom="@drawable/ic_book_open_page_variant_black"
+                android:gravity="center"
+                android:text="@string/btnHomeDiary" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardHomeBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardHomeIncidents"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            app:cardElevation="4dp">
+
+            <Button
+                android:id="@+id/btnHomeBoard"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="146dp"
+                android:layout_height="100dp"
+                android:drawableBottom="@drawable/ic_clipboard_text_black"
+                android:gravity="center"
+                android:text="@string/btnHomeBoard" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardHomeCBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/cardHomeDiary"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            app:cardElevation="4dp">
+
+            <Button
+                android:id="@+id/btnHomeCBoard"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="146dp"
+                android:layout_height="100dp"
+                android:drawableBottom="@drawable/ic_developer_board_black"
+                android:gravity="center"
+                android:text="@string/btnHomeCBoard" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardHomeDocuments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardHomeBoard"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            app:cardElevation="4dp">
+
+            <Button
+                android:id="@+id/btnHomeDocuments"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="146dp"
+                android:layout_height="100dp"
+                android:drawableBottom="@drawable/ic_file_document_black"
+                android:gravity="center"
+                android:text="@string/btnHomeDocuments" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardHomeMeetings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/cardHomeCBoard"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            app:cardElevation="4dp">
+
+            <Button
+                android:id="@+id/btnHomeMeetings"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="146dp"
+                android:layout_height="100dp"
+                android:drawableBottom="@drawable/ic_calendar_text_black"
+                android:gravity="center"
+                android:text="@string/btnHomeMeetings" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardHomeInformation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/cardHomeMeetings"
+            android:layout_alignLeft="@id/cardHomeDocuments"
+            android:layout_alignRight="@+id/cardHomeMeetings"
+            android:layout_alignStart="@id/cardHomeDocuments"
+            android:layout_below="@id/cardHomeDocuments"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="4dp">
+
+            <Button
+                android:id="@+id/btnHomeInformation"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:drawableBottom="@drawable/ic_information_variant_black"
+                android:gravity="center"
+                android:text="@string/btnHomeInformation" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardHomeProfile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/cardHomeInformation"
+            android:layout_alignLeft="@id/cardHomeInformation"
+            android:layout_alignRight="@+id/cardHomeInformation"
+            android:layout_alignStart="@id/cardHomeInformation"
+            android:layout_below="@id/cardHomeInformation"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="4dp">
+
+            <Button
+                android:id="@+id/btnHomeProfile"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:drawableBottom="@drawable/ic_face_profile_black"
+                android:gravity="center"
+                android:text="@string/btnHomeProfile" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardHomeUsers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardHomeProfile"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            app:cardElevation="4dp">
+
+            <Button
+                android:id="@+id/btnHomeUsers"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="146dp"
+                android:layout_height="100dp"
+                android:drawableBottom="@drawable/ic_account_multiple_black"
+                android:gravity="center"
+                android:text="@string/btnHomeUsers" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardHomeCommunities"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/cardHomeProfile"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            app:cardElevation="4dp">
+
+            <Button
+                android:id="@+id/btnHomeCommunities"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="146dp"
+                android:layout_height="100dp"
+                android:drawableBottom="@drawable/ic_home_modern_black"
+                android:gravity="center"
+                android:text="@string/btnHomeCommunities" />
+        </android.support.v7.widget.CardView>
+        -->
+    </RelativeLayout>
+</ScrollView>

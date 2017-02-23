@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jmed.condominapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
+
+    <application
+        android:name=".CondominappApplication"
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Activity_Login"
+            android:theme="@style/AppTheme.ActionBar"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity_Login_Admin"
+            android:theme="@style/AppTheme.ActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Activity_Home"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="jvmedinilla.ncatz.com"
+                    android:pathPrefix="/activity_home"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".preferences.application.Profile"
+            android:theme="@style/AppTheme.ActionBar" />
+        <activity
+            android:name=".preferences.application.Settings"
+            android:theme="@style/AppTheme.ActionBar" />
+        <activity android:name=".Activity_QR" />
+        <activity android:name=".Activity_ViewImage"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Settings">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="rememberaccesskey"
+            android:summary="@string/rememberaccesskey_description"
+            android:title="@string/rememberaccesskey_title" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="keepuserconnected"
+            android:summary="@string/keepuserconnected_description"
+            android:title="@string/keepuserconnected_title" />
+    </PreferenceCategory>
+</PreferenceScreen>

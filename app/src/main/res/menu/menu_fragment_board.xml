@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menuBoard_date"
+        android:orderInCategory="1"
+        android:title="@string/menuBoard_date"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuBoard_title"
+        android:orderInCategory="2"
+        android:title="@string/menuBoard_title"
+        app:showAsAction="never" />
+
+</menu>

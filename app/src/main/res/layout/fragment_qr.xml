@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.dlazaro66.qrcodereaderview.QRCodeReaderView
+        android:id="@+id/qrReader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <View
+        android:id="@+id/frament_qr_gradient"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/qr_gradient" />
+
+    <LinearLayout
+        android:id="@+id/fragment_qr_container"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_alignBottom="@+id/frament_qr_gradient"
+        android:layout_alignEnd="@+id/frament_qr_gradient"
+        android:layout_alignLeft="@+id/frament_qr_gradient"
+        android:layout_alignRight="@+id/frament_qr_gradient"
+        android:layout_alignStart="@+id/frament_qr_gradient"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/fragment_qr_txtFlash"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/fragment_qr_txtFlash"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp" />
+
+        <Switch
+            android:id="@+id/fragment_qr_swtFlash"
+            android:layout_width="80dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</RelativeLayout>

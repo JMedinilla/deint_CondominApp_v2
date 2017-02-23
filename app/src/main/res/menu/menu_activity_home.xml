@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/groupOne"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/navIncidents"
+            android:icon="@drawable/image"
+            android:title="@string/navIncidents" />
+        <item
+            android:id="@+id/navDiary"
+            android:icon="@drawable/book_open_page_variant"
+            android:title="@string/navDiary" />
+        <item
+            android:id="@+id/navBoard"
+            android:icon="@drawable/clipboard_text"
+            android:title="@string/navBoard" />
+        <item
+            android:id="@+id/navCBoard"
+            android:icon="@drawable/developer_board"
+            android:title="@string/navCBoard" />
+        <item
+            android:id="@+id/navDocuments"
+            android:icon="@drawable/file_document"
+            android:title="@string/navDocuments" />
+        <item
+            android:id="@+id/navMeetings"
+            android:icon="@drawable/calendar_text"
+            android:title="@string/navMeetings" />
+        <item
+            android:id="@+id/navInformation"
+            android:icon="@drawable/information_variant"
+            android:title="@string/navInformation" />
+        <item
+            android:id="@+id/navProfile"
+            android:icon="@drawable/face_profile"
+            android:title="@string/navProfile" />
+        <item
+            android:id="@+id/navUsers"
+            android:icon="@drawable/account_multiple"
+            android:title="@string/navUsers" />
+        <item
+            android:id="@+id/navCommunities"
+            android:icon="@drawable/home_modern"
+            android:title="@string/navCommunities" />
+    </group>
+
+    <group
+        android:id="@+id/groupTwo"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/twoNavShop"
+            android:icon="@drawable/shopping"
+            android:title="@string/twoNavShop" />
+        <item
+            android:id="@+id/twoNavGame"
+            android:icon="@drawable/gamepad"
+            android:title="@string/twoNavGame" />
+    </group>
+
+    <group
+        android:id="@+id/groupThree"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/threeNavSettings"
+            android:icon="@drawable/settings"
+            android:title="@string/threeNavSettings" />
+        <item
+            android:id="@+id/threeNavHelp"
+            android:icon="@drawable/help"
+            android:title="@string/threeNavHelp" />
+    </group>
+
+    <group
+        android:id="@+id/groupFour"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/fourNavAbout"
+            android:icon="@drawable/comment_account_outline"
+            android:title="@string/fourNavAbout" />
+    </group>
+</menu>
