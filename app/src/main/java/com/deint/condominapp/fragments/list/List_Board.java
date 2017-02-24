@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -142,16 +141,12 @@ public class List_Board extends Fragment implements IBoardPresenter.View {
                 });
         View content = dialog.build().getCustomView();
         if (content != null) {
-            String month = (String) DateFormat.format("MMM", entry.getEn_date());
-            String year = (String) DateFormat.format("yyyy", entry.getEn_date());
-            String day = (String) DateFormat.format("dd", entry.getEn_date());
-
             TextView txtUser = (TextView) content.findViewById(R.id.detail_entry_user);
             TextView txtDate = (TextView) content.findViewById(R.id.detail_entry_date);
             TextView txtDescription = (TextView) content.findViewById(R.id.detail_entry_description);
 
             txtUser.setText(entry.getEn_userid());
-            txtDate.setText(day + " " + month + " " + year);
+            txtDate.setText(entry.getEn_date());
             txtDescription.setText(entry.getEn_content());
         }
         dialog.show();

@@ -4,15 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Comparator;
-import java.util.Date;
 
 public class Pojo_Meeting implements Parcelable {
     private int me_id;
     private int me_community;
-    private Date me_date;
+    private String me_date;
     private boolean me_deleted;
 
-    public Pojo_Meeting(int me_id, int me_community, Date me_date, boolean me_deleted) {
+    public Pojo_Meeting(int me_id, int me_community, String me_date, boolean me_deleted) {
         this.me_id = me_id;
         this.me_community = me_community;
         this.me_date = me_date;
@@ -30,7 +29,7 @@ public class Pojo_Meeting implements Parcelable {
         return me_community;
     }
 
-    public Date getMe_date() {
+    public String getMe_date() {
         return me_date;
     }
 
@@ -52,7 +51,7 @@ public class Pojo_Meeting implements Parcelable {
         this.me_community = me_community;
     }
 
-    public void setMe_date(Date me_date) {
+    public void setMe_date(String me_date) {
         this.me_date = me_date;
     }
 
@@ -68,7 +67,7 @@ public class Pojo_Meeting implements Parcelable {
 
     @Override
     public String toString() {
-        return "Meeting (" + me_date.toString() + ")";
+        return "Meeting (" + me_date + ")";
     }
 
     @Override
@@ -107,6 +106,7 @@ public class Pojo_Meeting implements Parcelable {
     private Pojo_Meeting(Parcel in) {
         me_id = in.readInt();
         me_community = in.readInt();
+        me_date = in.readString();
         me_deleted = in.readByte() != 0;
     }
 
@@ -123,10 +123,11 @@ public class Pojo_Meeting implements Parcelable {
     };
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(me_id);
-        parcel.writeInt(me_community);
-        parcel.writeByte((byte) (me_deleted ? 1 : 0));
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(me_id);
+        dest.writeInt(me_community);
+        dest.writeString(me_date);
+        dest.writeByte((byte) (me_deleted ? 1 : 0));
     }
 
     @Override

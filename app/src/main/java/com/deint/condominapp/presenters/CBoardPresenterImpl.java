@@ -1,17 +1,21 @@
 package com.deint.condominapp.presenters;
 
+import com.deint.condominapp.CondominappApplication;
 import com.deint.condominapp.R;
+import com.deint.condominapp.database.DatabaseManager_Entry;
 import com.deint.condominapp.interfaces.ICBoardPresenter;
 import com.deint.condominapp.pojos.Pojo_Entry;
-import com.deint.condominapp.repositories.Repository_Entry_Second;
+import com.deint.condominapp.preferences.files.Profile;
 
 import java.util.List;
 
 public class CBoardPresenterImpl implements ICBoardPresenter {
     private ICBoardPresenter.View view;
+    private Profile profile;
 
     public CBoardPresenterImpl(ICBoardPresenter.View view) {
         this.view = view;
+        profile = new Profile(CondominappApplication.getContext());
     }
 
     @Override
@@ -19,7 +23,7 @@ public class CBoardPresenterImpl implements ICBoardPresenter {
      * Method to get all entries
      */
     public List<Pojo_Entry> selectSecondEntries() {
-        return Repository_Entry_Second.getInstance().getEntries();
+        return DatabaseManager_Entry.getInstance().getFirstEntries(profile.getUserCommunity());
     }
 
     @Override
@@ -36,6 +40,7 @@ public class CBoardPresenterImpl implements ICBoardPresenter {
      */
     public int insertSecondEntry(Pojo_Entry entry) {
         int result = -1;
+        /*
         if (!Repository_Entry_Second.getInstance().contains(entry)) {
             Repository_Entry_Second.getInstance().add(entry);
             result = 0;
@@ -43,6 +48,7 @@ public class CBoardPresenterImpl implements ICBoardPresenter {
         } else {
             view.showMessage(R.string.exists, false);
         }
+        */
         return result;
     }
 
@@ -60,9 +66,11 @@ public class CBoardPresenterImpl implements ICBoardPresenter {
      */
     public int deleteSecondEntry(Pojo_Entry entry) {
         int result = -1;
+        /*
         if (Repository_Entry_Second.getInstance().getEntries().remove(entry)) {
             result = 0;
         }
+        */
         return result;
     }
 

@@ -4,22 +4,20 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Comparator;
-import java.util.Date;
-import java.util.UUID;
 
 public class Pojo_Incident implements Parcelable {
     private String in_id;
     private String in_userid;
     private int in_usercommunity;
-    private Date in_date;
+    private String in_date;
     private String in_title;
     private String in_description;
     private String in_photo;
     private boolean in_deleted;
 
-    public Pojo_Incident(String in_userid, int in_usercommunity, Date in_date, String in_title,
+    public Pojo_Incident(String in_id, String in_userid, int in_usercommunity, String in_date, String in_title,
                          String in_description, String in_photo, boolean in_deleted) {
-        this.in_id = UUID.randomUUID().toString();
+        this.in_id = in_id;
         this.in_userid = in_userid;
         this.in_usercommunity = in_usercommunity;
         this.in_date = in_date;
@@ -44,7 +42,7 @@ public class Pojo_Incident implements Parcelable {
         return in_usercommunity;
     }
 
-    public Date getIn_date() {
+    public String getIn_date() {
         return in_date;
     }
 
@@ -82,7 +80,7 @@ public class Pojo_Incident implements Parcelable {
         this.in_usercommunity = in_usercommunity;
     }
 
-    public void setIn_date(Date in_date) {
+    public void setIn_date(String in_date) {
         this.in_date = in_date;
     }
 
@@ -110,7 +108,7 @@ public class Pojo_Incident implements Parcelable {
 
     @Override
     public String toString() {
-        return "Incident: " + in_title + " (" + in_date.toString() + ")";
+        return "Incident: " + in_title + " (" + in_date + ")";
     }
 
     @Override
@@ -157,6 +155,7 @@ public class Pojo_Incident implements Parcelable {
         in_id = in.readString();
         in_userid = in.readString();
         in_usercommunity = in.readInt();
+        in_date = in.readString();
         in_title = in.readString();
         in_description = in.readString();
         in_photo = in.readString();
@@ -180,6 +179,7 @@ public class Pojo_Incident implements Parcelable {
         dest.writeString(in_id);
         dest.writeString(in_userid);
         dest.writeInt(in_usercommunity);
+        dest.writeString(in_date);
         dest.writeString(in_title);
         dest.writeString(in_description);
         dest.writeString(in_photo);

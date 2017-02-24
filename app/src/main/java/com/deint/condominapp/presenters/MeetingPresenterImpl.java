@@ -1,17 +1,21 @@
 package com.deint.condominapp.presenters;
 
+import com.deint.condominapp.CondominappApplication;
 import com.deint.condominapp.R;
+import com.deint.condominapp.database.DatabaseManager_Meeting;
 import com.deint.condominapp.interfaces.IMeetingPresenter;
 import com.deint.condominapp.pojos.Pojo_Meeting;
-import com.deint.condominapp.repositories.Repository_Meeting;
+import com.deint.condominapp.preferences.files.Profile;
 
 import java.util.List;
 
 public class MeetingPresenterImpl implements IMeetingPresenter {
     private IMeetingPresenter.View view;
+    private Profile profile;
 
     public MeetingPresenterImpl(IMeetingPresenter.View view) {
         this.view = view;
+        profile = new Profile(CondominappApplication.getContext());
     }
 
     @Override
@@ -19,7 +23,7 @@ public class MeetingPresenterImpl implements IMeetingPresenter {
      * Method to get all meetings
      */
     public List<Pojo_Meeting> selectMeetings() {
-        return Repository_Meeting.getInstance().getMeetings();
+        return DatabaseManager_Meeting.getInstance().getMeetings(profile.getUserCommunity());
     }
 
     @Override

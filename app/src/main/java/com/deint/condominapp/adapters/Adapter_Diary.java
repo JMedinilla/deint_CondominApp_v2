@@ -10,10 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.deint.condominapp.R;
-import com.deint.condominapp.repositories.Repository_Note;
 import com.deint.condominapp.pojos.Pojo_Note;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -68,7 +66,7 @@ public class Adapter_Diary extends ArrayAdapter<Pojo_Note> {
      * @param comparator Order criterion
      */
     public void sortDiaries(Comparator<Pojo_Note> comparator) {
-        Collections.sort(Repository_Note.getInstance(), comparator);
+        this.sort(comparator);
         notifyDataSetChanged();
     }
 }

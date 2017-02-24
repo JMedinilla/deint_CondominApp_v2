@@ -1,17 +1,21 @@
 package com.deint.condominapp.presenters;
 
+import com.deint.condominapp.CondominappApplication;
 import com.deint.condominapp.R;
+import com.deint.condominapp.database.DatabaseManager_Note;
 import com.deint.condominapp.interfaces.IDiaryPresenter;
 import com.deint.condominapp.pojos.Pojo_Note;
-import com.deint.condominapp.repositories.Repository_Note;
+import com.deint.condominapp.preferences.files.Profile;
 
 import java.util.List;
 
 public class DiaryPresenterImpl implements IDiaryPresenter {
     private IDiaryPresenter.View view;
+    private Profile profile;
 
     public DiaryPresenterImpl(IDiaryPresenter.View view) {
         this.view = view;
+        profile = new Profile(CondominappApplication.getContext());
     }
 
     @Override
@@ -19,7 +23,7 @@ public class DiaryPresenterImpl implements IDiaryPresenter {
      * Method to get all notes
      */
     public List<Pojo_Note> selectNotes() {
-        return Repository_Note.getInstance().getNotes();
+        return DatabaseManager_Note.getInstance().getNotes(profile.getUserCommunity());
     }
 
     @Override
@@ -36,6 +40,7 @@ public class DiaryPresenterImpl implements IDiaryPresenter {
      */
     public int insertNote(Pojo_Note note) {
         int result = -1;
+        /*
         if (!Repository_Note.getInstance().contains(note)) {
             Repository_Note.getInstance().add(note);
             result = 0;
@@ -43,6 +48,7 @@ public class DiaryPresenterImpl implements IDiaryPresenter {
         } else {
             view.showMessage(R.string.exists, false);
         }
+        */
         return result;
     }
 
@@ -60,9 +66,11 @@ public class DiaryPresenterImpl implements IDiaryPresenter {
      */
     public int deleteNote(Pojo_Note note) {
         int result = -1;
+        /*
         if (Repository_Note.getInstance().getNotes().remove(note)) {
             result = 0;
         }
+        */
         return result;
     }
 

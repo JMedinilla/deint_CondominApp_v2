@@ -3,7 +3,6 @@ package com.deint.condominapp.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.deint.condominapp.R;
-import com.deint.condominapp.repositories.Repository_Entry_Second;
 import com.deint.condominapp.pojos.Pojo_Entry;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -52,12 +49,8 @@ public class Adapter_CBoard extends ArrayAdapter<Pojo_Entry> {
 
         Pojo_Entry entry = getItem(position);
         if (entry != null) {
-            String month = (String) DateFormat.format("MMM", entry.getEn_date());
-            String year = (String) DateFormat.format("yyyy", entry.getEn_date());
-            String day = (String) DateFormat.format("dd", entry.getEn_date());
-
             cBoardHolder.txtTitle.setText(entry.getEn_title());
-            cBoardHolder.txtDate.setText(day + " " + month + " " + year);
+            cBoardHolder.txtDate.setText(entry.getEn_date());
             cBoardHolder.txtDescription.setText(entry.getEn_content());
         }
 
@@ -76,7 +69,7 @@ public class Adapter_CBoard extends ArrayAdapter<Pojo_Entry> {
      * @param comparator Order criterion
      */
     public void sortSecondEntries(Comparator<Pojo_Entry> comparator) {
-        Collections.sort(Repository_Entry_Second.getInstance(), comparator);
+        this.sort(comparator);
         notifyDataSetChanged();
     }
 }

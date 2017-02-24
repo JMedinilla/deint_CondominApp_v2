@@ -16,7 +16,6 @@ public class Form_Meeting extends Fragment {
     private Pojo_Meeting update = null;
 
     private FragmentFormMeetingListener listCallback;
-    public static final String TAG_FRAGMENT_FORM_MEETING = "fragmentFormMeetingTag";
 
     /**
      * Listener from the fragment to the Activity

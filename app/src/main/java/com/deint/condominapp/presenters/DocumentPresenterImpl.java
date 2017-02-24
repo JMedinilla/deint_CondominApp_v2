@@ -1,17 +1,21 @@
 package com.deint.condominapp.presenters;
 
+import com.deint.condominapp.CondominappApplication;
 import com.deint.condominapp.R;
+import com.deint.condominapp.database.DatabaseManager_Document;
 import com.deint.condominapp.interfaces.IDocumentPresenter;
 import com.deint.condominapp.pojos.Pojo_Document;
-import com.deint.condominapp.repositories.Repository_Document;
+import com.deint.condominapp.preferences.files.Profile;
 
 import java.util.List;
 
 public class DocumentPresenterImpl implements IDocumentPresenter {
     private IDocumentPresenter.View view;
+    private Profile profile;
 
     public DocumentPresenterImpl(IDocumentPresenter.View view) {
         this.view = view;
+        profile = new Profile(CondominappApplication.getContext());
     }
 
     @Override
@@ -19,7 +23,7 @@ public class DocumentPresenterImpl implements IDocumentPresenter {
      * Method to get all documents
      */
     public List<Pojo_Document> selectDocuments() {
-        return Repository_Document.getInstance().getDocuments();
+        return DatabaseManager_Document.getInstance().getDocuments(profile.getUserCommunity());
     }
 
     @Override
@@ -36,6 +40,7 @@ public class DocumentPresenterImpl implements IDocumentPresenter {
      */
     public int insertDocument(Pojo_Document document) {
         int result = -1;
+        /*
         if (!Repository_Document.getInstance().contains(document)) {
             Repository_Document.getInstance().add(document);
             result = 0;
@@ -43,6 +48,7 @@ public class DocumentPresenterImpl implements IDocumentPresenter {
         } else {
             view.showMessage(R.string.exists, false);
         }
+        */
         return result;
     }
 
@@ -60,9 +66,11 @@ public class DocumentPresenterImpl implements IDocumentPresenter {
      */
     public int deleteDocument(Pojo_Document document) {
         int result = -1;
+        /*
         if (Repository_Document.getInstance().getDocuments().remove(document)) {
             result = 0;
         }
+        */
         return result;
     }
 

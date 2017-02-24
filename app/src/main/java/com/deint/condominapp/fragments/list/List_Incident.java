@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -147,9 +146,6 @@ public class List_Incident extends Fragment implements IIncidentPresenter.View {
         View content = dialog.build().getCustomView();
         if (content != null) {
             final String imageUrl = incident.getIn_photo();
-            String month = (String) DateFormat.format("MMM", incident.getIn_date());
-            String year = (String) DateFormat.format("yyyy", incident.getIn_date());
-            String day = (String) DateFormat.format("dd", incident.getIn_date());
 
             ImageView img = (ImageView) content.findViewById(R.id.detail_incident_image);
             TextView txtUser = (TextView) content.findViewById(R.id.detail_incident_user);
@@ -162,7 +158,7 @@ public class List_Incident extends Fragment implements IIncidentPresenter.View {
                 Picasso.with(getContext()).load(incident.getIn_photo()).fit().centerCrop().into(img);
             }
             txtUser.setText(incident.getIn_userid());
-            txtDate.setText(day + " " + month + " " + year);
+            txtDate.setText(incident.getIn_date());
             txtDescription.setText(incident.getIn_description());
 
             img.setOnClickListener(new View.OnClickListener() {

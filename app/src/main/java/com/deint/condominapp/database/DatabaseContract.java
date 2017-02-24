@@ -15,14 +15,14 @@ class DatabaseContract {
         static final String COLUMN_APARTMENTS = "co_apartments";
         static final String COLUMN_DELETED = "co_deleted";
 
-        public static final String[] ALL_COLUMNS = {
+        static final String[] ALL_COLUMNS = {
                 COLUMN_ID, COLUMN_LOCALITY, COLUMN_MUNICIPALITY, COLUMN_ADDRESS, COLUMN_NUMBER,
                 COLUMN_BLOCK, COLUMN_POSTAL, COLUMN_APARTMENTS, COLUMN_DELETED
         };
 
         static final String SQL_CREATION =
                 String.format("CREATE TABLE %s ("
-                                + "%s TEXT PRIMARY KEY, %s TEXT NOT NULL,"
+                                + "%s INTEGER PRIMARY KEY, %s TEXT NOT NULL,"
                                 + " %s TEXT NOT NULL, %s TEXT NOT NULL,"
                                 + " %s TEXT NOT NULL, %s TEXT NOT NULL,"
                                 + " %s TEXT NOT NULL, %s INTEGER NOT NULL,"
@@ -33,6 +33,9 @@ class DatabaseContract {
 
         static final String SQL_DELETION =
                 String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
+
+        static final String COMMUNITY_INSERT =
+                "INSERT INTO community VALUES (1,'Madrid','Madrid','C/ Desengaño','21','0','99999',8,0)";
     }
 
     static class USER_TABLE implements BaseColumns {
@@ -52,7 +55,7 @@ class DatabaseContract {
                 String.format("REFERENCES %s (%s) ON UPDATE CASCADE ON DELETE RESTRICT",
                         COMMUNITY_TABLE.TABLE_NAME, COMMUNITY_TABLE._ID);
 
-        public static final String[] ALL_COLUMNS = {
+        static final String[] ALL_COLUMNS = {
                 COLUMN_ID, COLUMN_COMMUNITY, COLUMN_FLOOR, COLUMN_DOOR, COLUMN_PHONE,
                 COLUMN_MAIL, COLUMN_NAME, COLUMN_CATEGORY, COLUMN_PHOTO, COLUMN_DELETED
         };
@@ -70,12 +73,16 @@ class DatabaseContract {
 
         static final String SQL_DELETION =
                 String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
+
+        static final String USER_INSERT =
+                "INSERT INTO user VALUES ('moronlu18',1,'2','B','656565656','moronlu18@gmail.com','Lourdes Rodríguez',0,'https://avatars2.githubusercontent.com/u/1367291?v=3&s=400',0)";
     }
 
     static class INCIDENT_TABLE implements BaseColumns {
         static final String TABLE_NAME = "incident";
         static final String COLUMN_ID = _ID;
         static final String COLUMN_USER = "in_user";
+        static final String COLUMN_COMMUNITY = "in_community";
         static final String COLUMN_DATE = "in_date";
         static final String COLUMN_TITLE = "in_title";
         static final String COLUMN_DESCRIPTION = "in_description";
@@ -86,28 +93,32 @@ class DatabaseContract {
                 String.format("REFERENCES %s (%s) ON UPDATE CASCADE ON DELETE RESTRICT",
                         USER_TABLE.TABLE_NAME, USER_TABLE._ID);
 
-        public static final String[] ALL_COLUMNS = {
-                COLUMN_ID, COLUMN_USER, COLUMN_DATE, COLUMN_TITLE,
+        static final String[] ALL_COLUMNS = {
+                COLUMN_ID, COLUMN_USER, COLUMN_COMMUNITY, COLUMN_DATE, COLUMN_TITLE,
                 COLUMN_DESCRIPTION, COLUMN_PHOTO, COLUMN_DELETED
         };
 
         static final String SQL_CREATION =
                 String.format("CREATE TABLE %s ("
-                                + "%s TEXT PRIMARY KEY, %s TEXT NOT NULL %s,"
+                                + "%s TEXT PRIMARY KEY, %s TEXT NOT NULL %s, %s INTEGER NOT NULL,"
                                 + " %s TEXT NOT NULL, %s TEXT NOT NULL,"
                                 + " %s TEXT NOT NULL, %s TEXT NOT NULL,"
                                 + " %s INTEGER NOT NULL)",
-                        TABLE_NAME, COLUMN_ID, COLUMN_USER, REFERENCE_USER, COLUMN_DATE,
+                        TABLE_NAME, COLUMN_ID, COLUMN_USER, REFERENCE_USER, COLUMN_COMMUNITY, COLUMN_DATE,
                         COLUMN_TITLE, COLUMN_DESCRIPTION, COLUMN_PHOTO, COLUMN_DELETED);
 
         static final String SQL_DELETION =
                 String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
+
+        static final String INCIDENT_INSERT =
+                "INSERT INTO incident VALUES ('aaaaa','moronlu18',1,'date','Edificio demolido','Pues eso que me he levantado y no tengo casa','http://www.enteratelorca.com/wp-content/uploads/Captura-de-pantalla-2013-01-26-a-las-06.42.19.png',0)";
     }
 
     static class ENTRY_TABLE implements BaseColumns {
         static final String TABLE_NAME = "entry";
         static final String COLUMN_ID = _ID;
         static final String COLUMN_USER = "en_user";
+        static final String COLUMN_COMMUNITY = "en_community";
         static final String COLUMN_TITLE = "en_title";
         static final String COLUMN_CONTENT = "en_content";
         static final String COLUMN_DATE = "en_date";
@@ -118,18 +129,18 @@ class DatabaseContract {
                 String.format("REFERENCES %s (%s) ON UPDATE CASCADE ON DELETE RESTRICT",
                         USER_TABLE.TABLE_NAME, USER_TABLE._ID);
 
-        public static final String[] ALL_COLUMNS = {
-                COLUMN_ID, COLUMN_USER, COLUMN_TITLE, COLUMN_CONTENT,
+        static final String[] ALL_COLUMNS = {
+                COLUMN_ID, COLUMN_USER, COLUMN_COMMUNITY, COLUMN_TITLE, COLUMN_CONTENT,
                 COLUMN_DATE, COLUMN_CATEGORY, COLUMN_DELETED
         };
 
         static final String SQL_CREATION =
                 String.format("CREATE TABLE %s ("
-                                + "%s TEXT PRIMARY KEY, %s TEXT NOT NULL %s,"
+                                + "%s TEXT PRIMARY KEY, %s TEXT NOT NULL %s, %s INTEGER NOT NULL,"
                                 + " %s TEXT NOT NULL, %s TEXT NOT NULL,"
                                 + " %s TEXT NOT NULL, %s INTEGER NOT NULL,"
                                 + " %s INTEGER NOT NULL)",
-                        TABLE_NAME, COLUMN_ID, COLUMN_USER, REFERENCE_USER, COLUMN_TITLE,
+                        TABLE_NAME, COLUMN_ID, COLUMN_USER, REFERENCE_USER, COLUMN_COMMUNITY, COLUMN_TITLE,
                         COLUMN_CONTENT, COLUMN_DATE, COLUMN_CATEGORY, COLUMN_DELETED);
 
         static final String SQL_DELETION =
@@ -149,7 +160,7 @@ class DatabaseContract {
                 String.format("REFERENCES %s (%s) ON UPDATE CASCADE ON DELETE RESTRICT",
                         COMMUNITY_TABLE.TABLE_NAME, COMMUNITY_TABLE._ID);
 
-        public static final String[] ALL_COLUMNS = {
+        static final String[] ALL_COLUMNS = {
                 COLUMN_ID, COLUMN_COMMUNITY, COLUMN_TITLE,
                 COLUMN_DESCRIPTION, COLUMN_LINK, COLUMN_DELETED
         };
@@ -179,7 +190,7 @@ class DatabaseContract {
                 String.format("REFERENCES %s (%s) ON UPDATE CASCADE ON DELETE RESTRICT",
                         COMMUNITY_TABLE.TABLE_NAME, COMMUNITY_TABLE._ID);
 
-        public static final String[] ALL_COLUMNS = {
+        static final String[] ALL_COLUMNS = {
                 COLUMN_ID, COLUMN_COMMUNITY, COLUMN_DATE,
                 COLUMN_TITLE, COLUMN_CONTENT, COLUMN_DELETED
         };
@@ -207,7 +218,7 @@ class DatabaseContract {
                 String.format("REFERENCES %s (%s) ON UPDATE CASCADE ON DELETE RESTRICT",
                         COMMUNITY_TABLE.TABLE_NAME, COMMUNITY_TABLE._ID);
 
-        public static final String[] ALL_COLUMNS = {
+        static final String[] ALL_COLUMNS = {
                 COLUMN_ID, COLUMN_COMMUNITY,
                 COLUMN_DATE, COLUMN_DELETED
         };
@@ -234,7 +245,7 @@ class DatabaseContract {
                 String.format("REFERENCES %s (%s) ON UPDATE CASCADE ON DELETE RESTRICT",
                         MEETING_TABLE.TABLE_NAME, MEETING_TABLE._ID);
 
-        public static final String[] ALL_COLUMNS = {
+        static final String[] ALL_COLUMNS = {
                 COLUMN_ID, COLUMN_MEETING,
                 COLUMN_TITLE, COLUMN_CONTENT
         };

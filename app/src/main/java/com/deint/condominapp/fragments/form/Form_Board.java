@@ -14,15 +14,17 @@ import com.deint.condominapp.R;
 import com.deint.condominapp.pojos.Pojo_Entry;
 import com.deint.condominapp.preferences.files.Profile;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
 
 public class Form_Board extends Fragment {
     private boolean UPDATE_MODE = false;
     private Pojo_Entry update = null;
 
     private FragmentFormBoardListener listCallback;
-    public static final String TAG_FRAGMENT_FORM_BOARD = "fragmentFormBoardTag";
 
     EditText title;
     EditText description;
@@ -60,8 +62,8 @@ public class Form_Board extends Fragment {
                     listCallback.onAcceptBoard(update, true);
                 } else {
                     Calendar calendar = Calendar.getInstance();
-                    Date date = new Date(calendar.getTimeInMillis());
-                    Pojo_Entry entry = new Pojo_Entry(profile.getUserId(), profile.getUserCommunity(), title.getText().toString(), description.getText().toString(), date, Pojo_Entry.FIRST, false);
+                    String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date(calendar.getTimeInMillis()));
+                    Pojo_Entry entry = new Pojo_Entry(UUID.randomUUID().toString(), profile.getUserId(), profile.getUserCommunity(), title.getText().toString(), description.getText().toString(), date, Pojo_Entry.FIRST, false);
                     listCallback.onAcceptBoard(entry, false);
                 }
             }

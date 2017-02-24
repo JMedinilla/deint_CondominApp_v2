@@ -2,7 +2,6 @@ package com.deint.condominapp.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.deint.condominapp.R;
-import com.deint.condominapp.repositories.Repository_Meeting;
 import com.deint.condominapp.pojos.Pojo_Meeting;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -47,10 +44,7 @@ public class Adapter_Meeting extends ArrayAdapter<Pojo_Meeting> {
 
         Pojo_Meeting meeting = getItem(position);
         if (meeting != null) {
-            String month = (String) DateFormat.format("MMM", meeting.getMe_date());
-            String year = (String) DateFormat.format("yyyy", meeting.getMe_date());
-            String day = (String) DateFormat.format("dd", meeting.getMe_date());
-            meetingHolder.txtTitle.setText(day + " " + month + " " + year);
+            meetingHolder.txtTitle.setText(meeting.getMe_date());
         }
 
         return view;
@@ -67,7 +61,7 @@ public class Adapter_Meeting extends ArrayAdapter<Pojo_Meeting> {
      * @param comparator Order criterion
      */
     public void sortMeetings(Comparator<Pojo_Meeting> comparator) {
-        Collections.sort(Repository_Meeting.getInstance(), comparator);
+        this.sort(comparator);
         notifyDataSetChanged();
     }
 }

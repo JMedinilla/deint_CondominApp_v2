@@ -4,8 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Comparator;
-import java.util.Date;
-import java.util.UUID;
 
 public class Pojo_Entry implements Parcelable {
     public static final int FIRST = 0;
@@ -16,13 +14,13 @@ public class Pojo_Entry implements Parcelable {
     private int en_usercommunity;
     private String en_title;
     private String en_content;
-    private Date en_date;
+    private String en_date;
     private int en_category;
     private boolean en_deleted;
 
-    public Pojo_Entry(String en_userid, int en_usercommunity, String en_title, String en_content,
-                      Date en_date, int en_category, boolean en_deleted) {
-        this.en_id = UUID.randomUUID().toString();
+    public Pojo_Entry(String en_id, String en_userid, int en_usercommunity, String en_title, String en_content,
+                      String en_date, int en_category, boolean en_deleted) {
+        this.en_id = en_id;
         this.en_userid = en_userid;
         this.en_usercommunity = en_usercommunity;
         this.en_title = en_title;
@@ -55,7 +53,7 @@ public class Pojo_Entry implements Parcelable {
         return en_content;
     }
 
-    public Date getEn_date() {
+    public String getEn_date() {
         return en_date;
     }
 
@@ -93,7 +91,7 @@ public class Pojo_Entry implements Parcelable {
         this.en_content = en_content;
     }
 
-    public void setEn_date(Date en_date) {
+    public void setEn_date(String en_date) {
         this.en_date = en_date;
     }
 
@@ -113,7 +111,7 @@ public class Pojo_Entry implements Parcelable {
 
     @Override
     public String toString() {
-        return "Pojo_Entry: " + en_title + " (" + en_date.toString() + ")";
+        return "Pojo_Entry: " + en_title + " (" + en_date + ")";
     }
 
     @Override
@@ -163,6 +161,7 @@ public class Pojo_Entry implements Parcelable {
         en_usercommunity = in.readInt();
         en_title = in.readString();
         en_content = in.readString();
+        en_date = in.readString();
         en_category = in.readInt();
         en_deleted = in.readByte() != 0;
     }
@@ -186,6 +185,7 @@ public class Pojo_Entry implements Parcelable {
         dest.writeInt(en_usercommunity);
         dest.writeString(en_title);
         dest.writeString(en_content);
+        dest.writeString(en_date);
         dest.writeInt(en_category);
         dest.writeByte((byte) (en_deleted ? 1 : 0));
     }

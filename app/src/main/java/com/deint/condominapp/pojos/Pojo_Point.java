@@ -12,8 +12,8 @@ public class Pojo_Point implements Parcelable {
     private String po_title;
     private String po_content;
 
-    public Pojo_Point(int po_meeting, String po_title, String po_content) {
-        this.po_id = UUID.randomUUID().toString();
+    public Pojo_Point(String po_id, int po_meeting, String po_title, String po_content) {
+        this.po_id = po_id;
         this.po_meeting = po_meeting;
         this.po_title = po_title;
         this.po_content = po_content;

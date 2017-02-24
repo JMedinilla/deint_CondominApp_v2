@@ -4,19 +4,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Comparator;
-import java.util.Date;
 import java.util.UUID;
 
 public class Pojo_Note implements Parcelable {
     private String no_id;
     private int no_community;
-    private Date no_date;
+    private String no_date;
     private String no_title;
     private String no_content;
     private boolean no_deleted;
 
-    public Pojo_Note(int no_community, Date no_date, String no_title, String no_content, boolean no_deleted) {
-        this.no_id = UUID.randomUUID().toString();
+    public Pojo_Note(String no_id, int no_community, String no_date, String no_title, String no_content, boolean no_deleted) {
+        this.no_id = no_id;
         this.no_community = no_community;
         this.no_date = no_date;
         this.no_title = no_title;
@@ -35,7 +34,7 @@ public class Pojo_Note implements Parcelable {
         return no_community;
     }
 
-    public Date getNo_date() {
+    public String getNo_date() {
         return no_date;
     }
 
@@ -65,7 +64,7 @@ public class Pojo_Note implements Parcelable {
         this.no_community = no_community;
     }
 
-    public void setNo_date(Date no_date) {
+    public void setNo_date(String no_date) {
         this.no_date = no_date;
     }
 
@@ -89,7 +88,7 @@ public class Pojo_Note implements Parcelable {
 
     @Override
     public String toString() {
-        return "Note: " + no_title + " (" + no_date.toString() + ")";
+        return "Note: " + no_title + " (" + no_date + ")";
     }
 
     @Override
@@ -135,6 +134,7 @@ public class Pojo_Note implements Parcelable {
     private Pojo_Note(Parcel in) {
         no_id = in.readString();
         no_community = in.readInt();
+        no_date = in.readString();
         no_title = in.readString();
         no_content = in.readString();
         no_deleted = in.readByte() != 0;
@@ -153,12 +153,13 @@ public class Pojo_Note implements Parcelable {
     };
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(no_id);
-        parcel.writeInt(no_community);
-        parcel.writeString(no_title);
-        parcel.writeString(no_content);
-        parcel.writeByte((byte) (no_deleted ? 1 : 0));
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(no_id);
+        dest.writeInt(no_community);
+        dest.writeString(no_date);
+        dest.writeString(no_title);
+        dest.writeString(no_content);
+        dest.writeByte((byte) (no_deleted ? 1 : 0));
     }
 
     @Override

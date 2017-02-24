@@ -16,15 +16,17 @@ import com.deint.condominapp.pojos.Pojo_Incident;
 import com.deint.condominapp.preferences.files.Profile;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
 
 public class Form_Incident extends Fragment {
     private boolean UPDATE_MODE = false;
     private Pojo_Incident update = null;
 
     private FragmentFormIncidentListener listCallback;
-    public static final String TAG_FRAGMENT_FORM_INCIDENT = "fragmentFormIncidentTag";
 
     ImageView img;
     EditText title;
@@ -69,9 +71,9 @@ public class Form_Incident extends Fragment {
                     listCallback.onAcceptIncident(update, true);
                 } else {
                     Calendar calendar = Calendar.getInstance();
-                    Date date = new Date(calendar.getTimeInMillis());
+                    String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date(calendar.getTimeInMillis()));
                     String url = "";
-                    Pojo_Incident incident = new Pojo_Incident(profile.getUserId(), profile.getUserCommunity(), date, title.getText().toString(), description.getText().toString(), url, false);
+                    Pojo_Incident incident = new Pojo_Incident(UUID.randomUUID().toString(), profile.getUserId(), profile.getUserCommunity(), date, title.getText().toString(), description.getText().toString(), url, false);
                     listCallback.onAcceptIncident(incident, false);
                 }
             }

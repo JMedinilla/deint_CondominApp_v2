@@ -14,12 +14,13 @@ import com.deint.condominapp.R;
 import com.deint.condominapp.pojos.Pojo_Document;
 import com.deint.condominapp.preferences.files.Profile;
 
+import java.util.UUID;
+
 public class Form_Document extends Fragment {
     private boolean UPDATE_MODE = false;
     private Pojo_Document update = null;
 
     private FragmentFormDocumentListener listCallback;
-    public static final String TAG_FRAGMENT_FORM_DOCUMENT = "fragmentFormDocumentTag";
 
     EditText title;
     EditText description;
@@ -58,7 +59,7 @@ public class Form_Document extends Fragment {
                 if (UPDATE_MODE) {
                     listCallback.onAcceptDocument(update, true);
                 } else {
-                    Pojo_Document doc = new Pojo_Document(profile.getUserCommunity(), title.getText().toString(), description.getText().toString(), link.getText().toString(), false);
+                    Pojo_Document doc = new Pojo_Document(UUID.randomUUID().toString(), profile.getUserCommunity(), title.getText().toString(), description.getText().toString(), link.getText().toString(), false);
                     listCallback.onAcceptDocument(doc, false);
                 }
             }

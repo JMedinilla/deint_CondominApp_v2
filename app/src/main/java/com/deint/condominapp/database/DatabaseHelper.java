@@ -9,7 +9,7 @@ import com.deint.condominapp.CondominappApplication;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "condominapp.db";
 
     private static volatile DatabaseHelper instance;
@@ -40,6 +40,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             sqLiteDatabase.execSQL(DatabaseContract.NOTE_TABLE.SQL_CREATION);
             sqLiteDatabase.execSQL(DatabaseContract.MEETING_TABLE.SQL_CREATION);
             sqLiteDatabase.execSQL(DatabaseContract.POINT_TABLE.SQL_CREATION);
+
+            sqLiteDatabase.execSQL(DatabaseContract.COMMUNITY_TABLE.COMMUNITY_INSERT);
+            sqLiteDatabase.execSQL(DatabaseContract.USER_TABLE.USER_INSERT);
+            sqLiteDatabase.execSQL(DatabaseContract.INCIDENT_TABLE.INCIDENT_INSERT);
             sqLiteDatabase.setTransactionSuccessful();
         } finally {
             sqLiteDatabase.endTransaction();

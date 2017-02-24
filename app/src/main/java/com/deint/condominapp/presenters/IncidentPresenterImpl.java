@@ -1,17 +1,21 @@
 package com.deint.condominapp.presenters;
 
+import com.deint.condominapp.CondominappApplication;
 import com.deint.condominapp.R;
+import com.deint.condominapp.database.DatabaseManager_Incident;
 import com.deint.condominapp.interfaces.IIncidentPresenter;
 import com.deint.condominapp.pojos.Pojo_Incident;
-import com.deint.condominapp.repositories.Repository_Incident;
+import com.deint.condominapp.preferences.files.Profile;
 
 import java.util.List;
 
 public class IncidentPresenterImpl implements IIncidentPresenter {
     private IIncidentPresenter.View view;
+    private Profile profile;
 
     public IncidentPresenterImpl(IIncidentPresenter.View view) {
         this.view = view;
+        profile = new Profile(CondominappApplication.getContext());
     }
 
     @Override
@@ -19,7 +23,7 @@ public class IncidentPresenterImpl implements IIncidentPresenter {
      * Method to get all incidents
      */
     public List<Pojo_Incident> selectIncidents() {
-        return Repository_Incident.getInstance().getIncidents();
+        return DatabaseManager_Incident.getInstance().getIncidents(profile.getUserCommunity());
     }
 
     @Override
@@ -36,6 +40,7 @@ public class IncidentPresenterImpl implements IIncidentPresenter {
      */
     public int insertIncident(Pojo_Incident incident) {
         int result = -1;
+        /*
         if (!Repository_Incident.getInstance().contains(incident)) {
             Repository_Incident.getInstance().add(incident);
             result = 0;
@@ -43,6 +48,7 @@ public class IncidentPresenterImpl implements IIncidentPresenter {
         } else {
             view.showMessage(R.string.exists, false);
         }
+        */
         return result;
     }
 
@@ -60,9 +66,11 @@ public class IncidentPresenterImpl implements IIncidentPresenter {
      */
     public int deleteIncident(Pojo_Incident incident) {
         int result = -1;
+        /*
         if (Repository_Incident.getInstance().getIncidents().remove(incident)) {
             result = 0;
         }
+        */
         return result;
     }
 

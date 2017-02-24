@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
-import com.deint.condominapp.repositories.Repository_User;
+import com.deint.condominapp.database.DatabaseManager_User;
 import com.deint.condominapp.pojos.Pojo_User;
 import com.deint.condominapp.preferences.files.Profile;
 import com.deint.condominapp.preferences.files.Settings;
@@ -105,7 +105,8 @@ public class Activity_Login extends AppCompatActivity {
     private void neighbourLogin(String keyP) {
         boolean result = false;
         Pojo_User tmpUser;
-        List<Pojo_User> tmpUsers = Repository_User.getInstance().getUsers();
+        List<Pojo_User> tmpUsers = DatabaseManager_User.getInstance().getUsers();
+
         for (int i = 0; i < tmpUsers.size(); i++) {
             if (keyP.equals(tmpUsers.get(i).getUs_id())) {
                 tmpUser = new Pojo_User(

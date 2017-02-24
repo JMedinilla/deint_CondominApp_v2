@@ -14,8 +14,8 @@ public class Pojo_Document implements Parcelable {
     private String do_link;
     private boolean do_deleted;
 
-    public Pojo_Document(int do_community, String do_title, String do_description, String do_link, boolean do_deleted) {
-        this.do_id = UUID.randomUUID().toString();
+    public Pojo_Document(String do_id, int do_community, String do_title, String do_description, String do_link, boolean do_deleted) {
+        this.do_id = do_id;
         this.do_community = do_community;
         this.do_title = do_title;
         this.do_description = do_description;

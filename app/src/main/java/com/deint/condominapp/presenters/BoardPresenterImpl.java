@@ -1,17 +1,21 @@
 package com.deint.condominapp.presenters;
 
+import com.deint.condominapp.CondominappApplication;
 import com.deint.condominapp.R;
+import com.deint.condominapp.database.DatabaseManager_Entry;
 import com.deint.condominapp.interfaces.IBoardPresenter;
 import com.deint.condominapp.pojos.Pojo_Entry;
-import com.deint.condominapp.repositories.Repository_Entry_First;
+import com.deint.condominapp.preferences.files.Profile;
 
 import java.util.List;
 
 public class BoardPresenterImpl implements IBoardPresenter {
     private IBoardPresenter.View view;
+    private Profile profile;
 
     public BoardPresenterImpl(IBoardPresenter.View view) {
         this.view = view;
+        profile = new Profile(CondominappApplication.getContext());
     }
 
     @Override
@@ -19,7 +23,7 @@ public class BoardPresenterImpl implements IBoardPresenter {
      * Method to get all entries
      */
     public List<Pojo_Entry> selectFirstEntries() {
-        return Repository_Entry_First.getInstance().getEntries();
+        return DatabaseManager_Entry.getInstance().getSecondEntries(profile.getUserCommunity());
     }
 
     @Override
@@ -36,6 +40,7 @@ public class BoardPresenterImpl implements IBoardPresenter {
      */
     public int insertFirstEntry(Pojo_Entry entry) {
         int result = -1;
+        /*
         if (!Repository_Entry_First.getInstance().contains(entry)) {
             Repository_Entry_First.getInstance().add(entry);
             result = 0;
@@ -43,6 +48,7 @@ public class BoardPresenterImpl implements IBoardPresenter {
         } else {
             view.showMessage(R.string.exists, false);
         }
+        */
         return result;
     }
 
@@ -60,9 +66,11 @@ public class BoardPresenterImpl implements IBoardPresenter {
      */
     public int deleteFirstEntry(Pojo_Entry entry) {
         int result = -1;
+        /*
         if (Repository_Entry_First.getInstance().getEntries().remove(entry)) {
             result = 0;
         }
+        */
         return result;
     }
 
