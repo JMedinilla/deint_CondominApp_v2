@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context="com.jmed.condominapp.Activity_ViewImage">
+    tools:context="com.deint.condominapp.Activity_ViewImage">
 
     <ImageView
         android:id="@+id/imageView_activity_view"

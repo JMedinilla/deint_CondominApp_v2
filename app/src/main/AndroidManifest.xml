@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jmed.condominapp">
+    package="com.deint.condominapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,7 +11,7 @@
     <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".CondominappApplication"
+        android:name="com.deint.condominapp.CondominappApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activity_Login"
+            android:name="com.deint.condominapp.Activity_Login"
             android:theme="@style/AppTheme.ActionBar"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -29,11 +29,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity_Login_Admin"
+            android:name="com.deint.condominapp.Activity_Login_Admin"
             android:theme="@style/AppTheme.ActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Activity_Home"
+            android:name="com.deint.condominapp.Activity_Home"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -48,13 +48,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".preferences.application.Profile"
+            android:name="com.deint.condominapp.preferences.application.Profile"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name=".preferences.application.Settings"
+            android:name="com.deint.condominapp.preferences.application.Settings"
             android:theme="@style/AppTheme.ActionBar" />
-        <activity android:name=".Activity_QR" />
-        <activity android:name=".Activity_ViewImage"></activity>
+        <activity android:name="com.deint.condominapp.Activity_QR" />
+        <activity android:name="com.deint.condominapp.Activity_ViewImage"></activity>
     </application>
 
 </manifest>

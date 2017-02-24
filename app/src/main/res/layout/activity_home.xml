@@ -23,7 +23,7 @@
         android:id="@+id/activity_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.jmed.condominapp.Activity_Home">
+        tools:context="com.deint.condominapp.Activity_Home">
 
     </FrameLayout>
 </LinearLayout>

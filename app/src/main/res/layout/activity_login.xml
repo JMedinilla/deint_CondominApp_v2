@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     android:padding="20dp"
-    tools:context="com.jmed.condominapp.Activity_Login">
+    tools:context="com.deint.condominapp.Activity_Login">
 
     <android.support.v7.widget.CardView
         android:id="@+id/activity_login_cardGroupWelcome"
