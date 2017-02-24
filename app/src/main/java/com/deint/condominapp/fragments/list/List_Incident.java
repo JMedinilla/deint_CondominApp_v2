@@ -35,6 +35,7 @@ public class List_Incident extends Fragment implements IIncidentPresenter.View {
 
     IncidentPresenterImpl incidentPresenter;
     Adapter_Incident adapter_incident;
+    ListView listView;
 
     /**
      * Listener from the fragment to the Activity
@@ -59,11 +60,10 @@ public class List_Incident extends Fragment implements IIncidentPresenter.View {
         View view = inflater.inflate(R.layout.fragment_list_incident, container, false);
 
         FloatingActionButton btn = (FloatingActionButton) view.findViewById(R.id.fragListIncident_btn);
-        ListView listView = (ListView) view.findViewById(R.id.fragListIncident_list);
+        listView = (ListView) view.findViewById(R.id.fragListIncident_list);
 
-        adapter_incident = new Adapter_Incident(getContext(), incidentPresenter.selectIncidents());
         listView.setDivider(null);
-        listView.setAdapter(adapter_incident);
+        setListAdapter();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,9 +131,9 @@ public class List_Incident extends Fragment implements IIncidentPresenter.View {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (incidentPresenter.deleteIncident(incident) == 0) {
                             showMessage(R.string.deleted, false);
-                            adapter_incident.notifyDataSetChanged();
+                            setListAdapter();
                         } else {
-                            showMessage(R.string.no_deleted, true);
+                            showMessage(R.string.deleteError, true);
                         }
                     }
                 })
@@ -173,6 +173,14 @@ public class List_Incident extends Fragment implements IIncidentPresenter.View {
             });
         }
         dialog.show();
+    }
+
+    /**
+     * Method to set an adapter to the fragment list
+     */
+    private void setListAdapter() {
+        adapter_incident = new Adapter_Incident(getContext(), incidentPresenter.selectIncidents());
+        listView.setAdapter(adapter_incident);
     }
 
     @Override

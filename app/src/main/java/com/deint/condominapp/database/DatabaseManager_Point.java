@@ -45,19 +45,15 @@ public class DatabaseManager_Point {
         return points;
     }
 
-    public Pojo_Point getPoint(String id) {
-        return null;
+    public long addPoint(Pojo_Point point) {
+        return 0;
     }
 
-    public void addPoint(Pojo_Point point) {
-        //
+    public int updatePoint(Pojo_Point point) {
+        return 0;
     }
 
-    public void updatePoint(Pojo_Point point) {
-        //
-    }
-
-    public void deletePoint(Pojo_Point point) {
-        //
+    public int deletePoint(Pojo_Point point) {
+        return 0;
     }
 }

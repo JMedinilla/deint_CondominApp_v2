@@ -33,6 +33,7 @@ public class List_Document extends Fragment implements IDocumentPresenter.View {
 
     DocumentPresenterImpl documentPresenter;
     Adapter_Document adapter_document;
+    ListView listView;
 
     /**
      * Listener from the fragment to the Activity
@@ -57,11 +58,10 @@ public class List_Document extends Fragment implements IDocumentPresenter.View {
         View view = inflater.inflate(R.layout.fragment_list_document, container, false);
 
         FloatingActionButton btn = (FloatingActionButton) view.findViewById(R.id.fragListDocument_btn);
-        ListView listView = (ListView) view.findViewById(R.id.fragListDocument_list);
+        listView = (ListView) view.findViewById(R.id.fragListDocument_list);
 
-        adapter_document = new Adapter_Document(getContext(), documentPresenter.selectDocuments());
         listView.setDivider(null);
-        listView.setAdapter(adapter_document);
+        setListAdapter();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,9 +129,9 @@ public class List_Document extends Fragment implements IDocumentPresenter.View {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (documentPresenter.deleteDocument(document) == 0) {
                             showMessage(R.string.deleted, false);
-                            adapter_document.notifyDataSetChanged();
+                            setListAdapter();
                         } else {
-                            showMessage(R.string.no_deleted, true);
+                            showMessage(R.string.deleteError, true);
                         }
                     }
                 })
@@ -162,6 +162,14 @@ public class List_Document extends Fragment implements IDocumentPresenter.View {
             });
         }
         dialog.show();
+    }
+
+    /**
+     * Method to set an adapter to the fragment list
+     */
+    private void setListAdapter() {
+        adapter_document = new Adapter_Document(getContext(), documentPresenter.selectDocuments());
+        listView.setAdapter(adapter_document);
     }
 
     @Override

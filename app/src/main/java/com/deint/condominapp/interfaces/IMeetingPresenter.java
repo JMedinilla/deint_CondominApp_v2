@@ -10,8 +10,6 @@ import java.util.List;
 public interface IMeetingPresenter {
     List<Pojo_Meeting> selectMeetings();
 
-    Pojo_Meeting selectMeeting(int id);
-
     int insertMeeting(Pojo_Meeting meeting);
 
     int updateMeeting(Pojo_Meeting meeting);

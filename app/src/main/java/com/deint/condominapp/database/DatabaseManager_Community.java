@@ -53,19 +53,15 @@ public class DatabaseManager_Community {
         return communities;
     }
 
-    public Pojo_Community getCommunity(int id) {
-        return null;
+    public long addCommunity(Pojo_Community community) {
+        return 0;
     }
 
-    public void addCommunity(Pojo_Community community) {
-        //
+    public int updateCommunity(Pojo_Community community) {
+        return 0;
     }
 
-    public void updateCommunity(Pojo_Community community) {
-        //
-    }
-
-    public void deleteCommunity(Pojo_Community community) {
-        //
+    public int deleteCommunity(Pojo_Community community) {
+        return 0;
     }
 }

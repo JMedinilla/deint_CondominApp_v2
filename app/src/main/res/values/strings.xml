@@ -1,12 +1,14 @@
 <resources>
     <!-- showMessage -->
-    <string name="inserted">Inserted</string>
-    <string name="deleted">Element has been deleted</string>
-    <string name="no_deleted">Element could not be deleted</string>
-    <string name="exists">Already exists</string>
     <string name="error_Title">Title is not valid</string>
     <string name="error_Description">Description is not valid</string>
     <string name="error_Link">Link is not valid</string>
+    <string name="inserted">Element inserted</string>
+    <string name="updated">Element updated</string>
+    <string name="deleted">Element deleted</string>
+    <string name="addError">This element could not be added</string>
+    <string name="updateError">This element could not be updated</string>
+    <string name="deleteError">This element could not be deleted</string>
 
     <string name="app_name">CondominApp</string>
     <string name="activity_login_txtTitle">CONDOMINAPP</string>

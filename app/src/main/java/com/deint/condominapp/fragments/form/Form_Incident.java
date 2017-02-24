@@ -83,7 +83,11 @@ public class Form_Incident extends Fragment {
         if (pojo_incident != null) {
             update = pojo_incident;
             UPDATE_MODE = true;
-            Picasso.with(getContext()).load(pojo_incident.getIn_photo()).fit().centerCrop().into(img);
+            if (!pojo_incident.getIn_photo().isEmpty()) {
+                Picasso.with(getContext()).load(pojo_incident.getIn_photo()).fit().centerCrop().into(img);
+            } else {
+                img.setImageResource(R.drawable.image);
+            }
             title.setText(pojo_incident.getIn_title());
             description.setText(pojo_incident.getIn_description());
         }

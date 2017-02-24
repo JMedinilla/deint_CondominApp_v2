@@ -31,6 +31,7 @@ public class List_Diary extends Fragment implements IDiaryPresenter.View {
 
     DiaryPresenterImpl diaryPresenter;
     Adapter_Diary adapter_diary;
+    ListView listView;
 
     /**
      * Listener from the fragment to the Activity
@@ -55,11 +56,10 @@ public class List_Diary extends Fragment implements IDiaryPresenter.View {
         View view = inflater.inflate(R.layout.fragment_list_diary, container, false);
 
         FloatingActionButton btn = (FloatingActionButton) view.findViewById(R.id.fragListDiary_btn);
-        ListView listView = (ListView) view.findViewById(R.id.fragListDiary_list);
+        listView = (ListView) view.findViewById(R.id.fragListDiary_list);
 
-        adapter_diary = new Adapter_Diary(getContext(), diaryPresenter.selectNotes());
         listView.setDivider(null);
-        listView.setAdapter(adapter_diary);
+        setListAdapter();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,9 +127,9 @@ public class List_Diary extends Fragment implements IDiaryPresenter.View {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (diaryPresenter.deleteNote(note) == 0) {
                             showMessage(R.string.deleted, false);
-                            adapter_diary.notifyDataSetChanged();
+                            setListAdapter();
                         } else {
-                            showMessage(R.string.no_deleted, true);
+                            showMessage(R.string.deleteError, true);
                         }
                     }
                 })
@@ -148,6 +148,14 @@ public class List_Diary extends Fragment implements IDiaryPresenter.View {
             txtDescription.setText(note.getNo_content());
         }
         dialog.show();
+    }
+
+    /**
+     * Method to set an adapter to the fragment list
+     */
+    private void setListAdapter() {
+        adapter_diary = new Adapter_Diary(getContext(), diaryPresenter.selectNotes());
+        listView.setAdapter(adapter_diary);
     }
 
     @Override

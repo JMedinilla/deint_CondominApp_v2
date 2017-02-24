@@ -27,6 +27,7 @@ public class List_Meeting extends Fragment implements IMeetingPresenter.View {
 
     MeetingPresenterImpl meetingPresenter;
     Adapter_Meeting adapter_meeting;
+    ListView listView;
 
     /**
      * Listener from the fragment to the Activity
@@ -51,11 +52,10 @@ public class List_Meeting extends Fragment implements IMeetingPresenter.View {
         View view = inflater.inflate(R.layout.fragment_list_meeting, container, false);
 
         FloatingActionButton btn = (FloatingActionButton) view.findViewById(R.id.fragListMeeting_btn);
-        ListView listView = (ListView) view.findViewById(R.id.fragListMeeting_list);
+        listView = (ListView) view.findViewById(R.id.fragListMeeting_list);
 
-        adapter_meeting = new Adapter_Meeting(getContext(), meetingPresenter.selectMeetings());
         listView.setDivider(null);
-        listView.setAdapter(adapter_meeting);
+        setListAdapter();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +81,14 @@ public class List_Meeting extends Fragment implements IMeetingPresenter.View {
      */
     public void showMessage(int msg, boolean error) {
         ((Activity_Home) getActivity()).showSnackbar(getString(msg), error);
+    }
+
+    /**
+     * Method to set an adapter to the fragment list
+     */
+    private void setListAdapter() {
+        adapter_meeting = new Adapter_Meeting(getContext(), meetingPresenter.selectMeetings());
+        listView.setAdapter(adapter_meeting);
     }
 
     @Override
@@ -134,7 +142,7 @@ public class List_Meeting extends Fragment implements IMeetingPresenter.View {
                     showMessage(R.string.deleted, false);
                     adapter_meeting.notifyDataSetChanged();
                 } else {
-                    showMessage(R.string.no_deleted, true);
+                    showMessage(R.string.deleteError, true);
                 }
                 return true;
             default:

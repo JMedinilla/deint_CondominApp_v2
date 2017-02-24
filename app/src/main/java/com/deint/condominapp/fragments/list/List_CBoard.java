@@ -31,6 +31,7 @@ public class List_CBoard extends Fragment implements ICBoardPresenter.View {
 
     CBoardPresenterImpl cBoardPresenter;
     Adapter_CBoard adapter_cBoard;
+    ListView listView;
 
     /**
      * Listener from the fragment to the Activity
@@ -55,11 +56,10 @@ public class List_CBoard extends Fragment implements ICBoardPresenter.View {
         View view = inflater.inflate(R.layout.fragment_list_cboard, container, false);
 
         FloatingActionButton btn = (FloatingActionButton) view.findViewById(R.id.fragListCBoard_btn);
-        ListView listView = (ListView) view.findViewById(R.id.fragListCBoard_list);
+        listView = (ListView) view.findViewById(R.id.fragListCBoard_list);
 
-        adapter_cBoard = new Adapter_CBoard(getContext(), cBoardPresenter.selectSecondEntries());
         listView.setDivider(null);
-        listView.setAdapter(adapter_cBoard);
+        setListAdapter();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,9 +127,9 @@ public class List_CBoard extends Fragment implements ICBoardPresenter.View {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (cBoardPresenter.deleteSecondEntry(entry) == 0) {
                             showMessage(R.string.deleted, false);
-                            adapter_cBoard.notifyDataSetChanged();
+                            setListAdapter();
                         } else {
-                            showMessage(R.string.no_deleted, true);
+                            showMessage(R.string.deleteError, true);
                         }
                     }
                 })
@@ -150,6 +150,14 @@ public class List_CBoard extends Fragment implements ICBoardPresenter.View {
             txtDescription.setText(entry.getEn_content());
         }
         dialog.show();
+    }
+
+    /**
+     * Method to set an adapter to the fragment list
+     */
+    private void setListAdapter() {
+        adapter_cBoard = new Adapter_CBoard(getContext(), cBoardPresenter.selectSecondEntries());
+        listView.setAdapter(adapter_cBoard);
     }
 
     @Override

@@ -28,7 +28,6 @@ public class Adapter_Incident extends ArrayAdapter<Pojo_Incident> {
     private class IncidentHolder {
         ImageView imgPhoto;
         TextView txtTitle;
-        TextView txtDate;
         TextView txtContent;
     }
 
@@ -43,7 +42,6 @@ public class Adapter_Incident extends ArrayAdapter<Pojo_Incident> {
             incidentHolder = new IncidentHolder();
             incidentHolder.imgPhoto = (ImageView) view.findViewById(R.id.adapterIncident_img);
             incidentHolder.txtTitle = (TextView) view.findViewById(R.id.adapterIncident_txtTitle);
-            incidentHolder.txtDate = (TextView) view.findViewById(R.id.adapterIncident_txtDate);
             incidentHolder.txtContent = (TextView) view.findViewById(R.id.adapterIncident_txtContent);
 
             view.setTag(incidentHolder);
@@ -59,7 +57,6 @@ public class Adapter_Incident extends ArrayAdapter<Pojo_Incident> {
                 Picasso.with(getContext()).load(incident.getIn_photo()).fit().centerCrop().into(incidentHolder.imgPhoto);
             }
             incidentHolder.txtTitle.setText(incident.getIn_title());
-            incidentHolder.txtDate.setText(incident.getIn_date());
             incidentHolder.txtContent.setText(incident.getIn_description());
         }
 
@@ -79,6 +76,10 @@ public class Adapter_Incident extends ArrayAdapter<Pojo_Incident> {
      */
     public void sortIncidents(Comparator<Pojo_Incident> comparator) {
         this.sort(comparator);
+        notifyDataSetChanged();
+    }
+
+    public void notifyDelete() {
         notifyDataSetChanged();
     }
 }

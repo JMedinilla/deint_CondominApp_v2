@@ -10,8 +10,6 @@ import java.util.List;
 public interface ICBoardPresenter {
     List<Pojo_Entry> selectSecondEntries();
 
-    Pojo_Entry selectSecondEntry(String id);
-
     int insertSecondEntry(Pojo_Entry entry);
 
     int updateSecondEntry(Pojo_Entry entry);

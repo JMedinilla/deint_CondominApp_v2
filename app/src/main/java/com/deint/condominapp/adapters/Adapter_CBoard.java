@@ -25,7 +25,6 @@ public class Adapter_CBoard extends ArrayAdapter<Pojo_Entry> {
 
     private class CBoardHolder {
         TextView txtTitle;
-        TextView txtDate;
         TextView txtDescription;
     }
 
@@ -39,7 +38,6 @@ public class Adapter_CBoard extends ArrayAdapter<Pojo_Entry> {
             view = LayoutInflater.from(context).inflate(R.layout.adapter_cboard, parent, false);
             cBoardHolder = new CBoardHolder();
             cBoardHolder.txtTitle = (TextView) view.findViewById(R.id.adapterCBoard_txtTitle);
-            cBoardHolder.txtDate = (TextView) view.findViewById(R.id.adapterCBoard_txtDate);
             cBoardHolder.txtDescription = (TextView) view.findViewById(R.id.adapterCBoard_txtContent);
 
             view.setTag(cBoardHolder);
@@ -50,7 +48,6 @@ public class Adapter_CBoard extends ArrayAdapter<Pojo_Entry> {
         Pojo_Entry entry = getItem(position);
         if (entry != null) {
             cBoardHolder.txtTitle.setText(entry.getEn_title());
-            cBoardHolder.txtDate.setText(entry.getEn_date());
             cBoardHolder.txtDescription.setText(entry.getEn_content());
         }
 

@@ -28,27 +28,16 @@ public class IncidentPresenterImpl implements IIncidentPresenter {
 
     @Override
     /**
-     * Method to get an incident
-     */
-    public Pojo_Incident selectIncident(String id) {
-        return null;
-    }
-
-    @Override
-    /**
      * Method to add an incident
      */
     public int insertIncident(Pojo_Incident incident) {
         int result = -1;
-        /*
-        if (!Repository_Incident.getInstance().contains(incident)) {
-            Repository_Incident.getInstance().add(incident);
+        if (DatabaseManager_Incident.getInstance().addIncident(incident) >= 0) {
             result = 0;
             view.showMessage(R.string.inserted, false);
         } else {
-            view.showMessage(R.string.exists, false);
+            view.showMessage(R.string.addError, false);
         }
-        */
         return result;
     }
 
@@ -57,7 +46,14 @@ public class IncidentPresenterImpl implements IIncidentPresenter {
      * Method to update an incident
      */
     public int updateIncident(Pojo_Incident incident) {
-        return 0;
+        int result = -1;
+        if (DatabaseManager_Incident.getInstance().updateIncident(incident) > 0) {
+            result = 0;
+            view.showMessage(R.string.updated, false);
+        } else {
+            view.showMessage(R.string.updateError, false);
+        }
+        return result;
     }
 
     @Override
@@ -66,11 +62,12 @@ public class IncidentPresenterImpl implements IIncidentPresenter {
      */
     public int deleteIncident(Pojo_Incident incident) {
         int result = -1;
-        /*
-        if (Repository_Incident.getInstance().getIncidents().remove(incident)) {
+        if (DatabaseManager_Incident.getInstance().deleteIncident(incident) > 0) {
             result = 0;
+            view.showMessage(R.string.deleted, false);
+        } else {
+            view.showMessage(R.string.deleteError, false);
         }
-        */
         return result;
     }
 

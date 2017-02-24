@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -598,6 +599,7 @@ public class Activity_Home extends AppCompatActivity implements
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         setTitle(item.getTitle());
+        clearStack();
         return true;
     }
 
@@ -629,5 +631,15 @@ public class Activity_Home extends AppCompatActivity implements
                     .show();
         }
 
+    }
+
+    /**
+     * Method used in the NavigationDrawer to clear the back stack after opening an option
+     */
+    public void clearStack() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+            fragmentManager.popBackStack();
+        }
     }
 }

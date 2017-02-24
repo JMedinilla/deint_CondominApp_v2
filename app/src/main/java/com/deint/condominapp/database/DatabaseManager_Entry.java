@@ -1,5 +1,6 @@
 package com.deint.condominapp.database;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -92,19 +93,51 @@ public class DatabaseManager_Entry {
         return entries;
     }
 
-    public Pojo_Entry get(String id) {
-        return null;
+    public long addEntry(Pojo_Entry entry) {
+        ContentValues values = new ContentValues();
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        values.put(DatabaseContract.ENTRY_TABLE.COLUMN_ID, entry.getEn_id());
+        values.put(DatabaseContract.ENTRY_TABLE.COLUMN_USER, entry.getEn_userid());
+        values.put(DatabaseContract.ENTRY_TABLE.COLUMN_COMMUNITY, entry.getEn_usercommunity());
+        values.put(DatabaseContract.ENTRY_TABLE.COLUMN_TITLE, entry.getEn_title());
+        values.put(DatabaseContract.ENTRY_TABLE.COLUMN_CONTENT, entry.getEn_content());
+        values.put(DatabaseContract.ENTRY_TABLE.COLUMN_DATE, entry.getEn_date());
+        values.put(DatabaseContract.ENTRY_TABLE.COLUMN_CATEGORY, entry.getEn_category());
+        if (entry.isEn_deleted()) {
+            values.put(DatabaseContract.ENTRY_TABLE.COLUMN_DELETED, 1);
+        } else {
+            values.put(DatabaseContract.ENTRY_TABLE.COLUMN_DELETED, 0);
+        }
+        long result = sqLiteDatabase.insert(DatabaseContract.ENTRY_TABLE.TABLE_NAME, null, values);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 
-    public void addEntry(Pojo_Entry entry) {
-        //
+    public int updateEntry(Pojo_Entry entry) {
+        ContentValues values = new ContentValues();
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        values.put(DatabaseContract.ENTRY_TABLE.COLUMN_USER, entry.getEn_userid());
+        values.put(DatabaseContract.ENTRY_TABLE.COLUMN_COMMUNITY, entry.getEn_usercommunity());
+        values.put(DatabaseContract.ENTRY_TABLE.COLUMN_TITLE, entry.getEn_title());
+        values.put(DatabaseContract.ENTRY_TABLE.COLUMN_CONTENT, entry.getEn_content());
+        values.put(DatabaseContract.ENTRY_TABLE.COLUMN_DATE, entry.getEn_date());
+        values.put(DatabaseContract.ENTRY_TABLE.COLUMN_CATEGORY, entry.getEn_category());
+        if (entry.isEn_deleted()) {
+            values.put(DatabaseContract.ENTRY_TABLE.COLUMN_DELETED, 1);
+        } else {
+            values.put(DatabaseContract.ENTRY_TABLE.COLUMN_DELETED, 0);
+        }
+        String[] where = {String.valueOf(entry.getEn_id())};
+        int result = sqLiteDatabase.update(DatabaseContract.ENTRY_TABLE.TABLE_NAME, values, "_id = ?", where);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 
-    public void updateEntry(Pojo_Entry entry) {
-        //
-    }
-
-    public void deleteEntry(Pojo_Entry entry) {
-        //
+    public int deleteEntry(Pojo_Entry entry) {
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        String[] where = {String.valueOf(entry.getEn_id())};
+        int result = sqLiteDatabase.delete(DatabaseContract.ENTRY_TABLE.TABLE_NAME, "_id = ?", where);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 }

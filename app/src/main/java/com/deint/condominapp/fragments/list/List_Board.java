@@ -31,6 +31,7 @@ public class List_Board extends Fragment implements IBoardPresenter.View {
 
     BoardPresenterImpl boardPresenter;
     Adapter_Board adapter_board;
+    ListView listView;
 
     /**
      * Listener from the fragment to the Activity
@@ -55,11 +56,10 @@ public class List_Board extends Fragment implements IBoardPresenter.View {
         View view = inflater.inflate(R.layout.fragment_list_board, container, false);
 
         FloatingActionButton btn = (FloatingActionButton) view.findViewById(R.id.fragListBoard_btn);
-        ListView listView = (ListView) view.findViewById(R.id.fragListBoard_list);
+        listView = (ListView) view.findViewById(R.id.fragListBoard_list);
 
-        adapter_board = new Adapter_Board(getContext(), boardPresenter.selectFirstEntries());
         listView.setDivider(null);
-        listView.setAdapter(adapter_board);
+        setListAdapter();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +82,7 @@ public class List_Board extends Fragment implements IBoardPresenter.View {
     /**
      * Method that recieves an element from the Activity and insert or update it
      *
-     * @param entry Entry to handle
+     * @param entry  Entry to handle
      * @param update Boolean to know if the element has to be inserted or updated
      * @return True or False depending on the succes of the operation
      */
@@ -127,9 +127,9 @@ public class List_Board extends Fragment implements IBoardPresenter.View {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (boardPresenter.deleteFirstEntry(entry) == 0) {
                             showMessage(R.string.deleted, false);
-                            adapter_board.notifyDataSetChanged();
+                            setListAdapter();
                         } else {
-                            showMessage(R.string.no_deleted, true);
+                            showMessage(R.string.deleteError, true);
                         }
                     }
                 })
@@ -150,6 +150,14 @@ public class List_Board extends Fragment implements IBoardPresenter.View {
             txtDescription.setText(entry.getEn_content());
         }
         dialog.show();
+    }
+
+    /**
+     * Method to set an adapter to the fragment list
+     */
+    private void setListAdapter() {
+        adapter_board = new Adapter_Board(getContext(), boardPresenter.selectFirstEntries());
+        listView.setAdapter(adapter_board);
     }
 
     @Override

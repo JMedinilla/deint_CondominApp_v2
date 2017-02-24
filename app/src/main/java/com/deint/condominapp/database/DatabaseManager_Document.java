@@ -1,5 +1,6 @@
 package com.deint.condominapp.database;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -52,19 +53,47 @@ public class DatabaseManager_Document {
         return documents;
     }
 
-    public Pojo_Document getDocument(String id) {
-        return null;
+    public long addDocument(Pojo_Document document) {
+        ContentValues values = new ContentValues();
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        values.put(DatabaseContract.DOCUMENT_TABLE.COLUMN_ID, document.getDo_id());
+        values.put(DatabaseContract.DOCUMENT_TABLE.COLUMN_COMMUNITY, document.getDo_community());
+        values.put(DatabaseContract.DOCUMENT_TABLE.COLUMN_TITLE, document.getDo_title());
+        values.put(DatabaseContract.DOCUMENT_TABLE.COLUMN_DESCRIPTION, document.getDo_description());
+        values.put(DatabaseContract.DOCUMENT_TABLE.COLUMN_LINK, document.getDo_link());
+        if (document.isDo_deleted()) {
+            values.put(DatabaseContract.DOCUMENT_TABLE.COLUMN_DELETED, 1);
+        } else {
+            values.put(DatabaseContract.DOCUMENT_TABLE.COLUMN_DELETED, 0);
+        }
+        long result = sqLiteDatabase.insert(DatabaseContract.DOCUMENT_TABLE.TABLE_NAME, null, values);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 
-    public void addDocument(Pojo_Document document) {
-        //
+    public int updateDocument(Pojo_Document document) {
+        ContentValues values = new ContentValues();
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        values.put(DatabaseContract.DOCUMENT_TABLE.COLUMN_COMMUNITY, document.getDo_community());
+        values.put(DatabaseContract.DOCUMENT_TABLE.COLUMN_TITLE, document.getDo_title());
+        values.put(DatabaseContract.DOCUMENT_TABLE.COLUMN_DESCRIPTION, document.getDo_description());
+        values.put(DatabaseContract.DOCUMENT_TABLE.COLUMN_LINK, document.getDo_link());
+        if (document.isDo_deleted()) {
+            values.put(DatabaseContract.DOCUMENT_TABLE.COLUMN_DELETED, 1);
+        } else {
+            values.put(DatabaseContract.DOCUMENT_TABLE.COLUMN_DELETED, 0);
+        }
+        String[] where = {String.valueOf(document.getDo_id())};
+        int result = sqLiteDatabase.update(DatabaseContract.DOCUMENT_TABLE.TABLE_NAME, values, "_id = ?", where);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 
-    public void updateDocument(Pojo_Document document) {
-        //
-    }
-
-    public void deleteDocument(Pojo_Document document) {
-        //
+    public int deleteDocument(Pojo_Document document) {
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        String[] where = {String.valueOf(document.getDo_id())};
+        int result = sqLiteDatabase.delete(DatabaseContract.DOCUMENT_TABLE.TABLE_NAME, "_id = ?", where);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 }

@@ -59,6 +59,8 @@ public class Form_Board extends Fragment {
             @Override
             public void onClick(View view) {
                 if (UPDATE_MODE) {
+                    update.setEn_title(title.getText().toString());
+                    update.setEn_content(description.getText().toString());
                     listCallback.onAcceptBoard(update, true);
                 } else {
                     Calendar calendar = Calendar.getInstance();

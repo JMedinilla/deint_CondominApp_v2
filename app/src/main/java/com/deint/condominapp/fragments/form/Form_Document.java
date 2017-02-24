@@ -57,6 +57,9 @@ public class Form_Document extends Fragment {
             @Override
             public void onClick(View view) {
                 if (UPDATE_MODE) {
+                    update.setDo_title(title.getText().toString());
+                    update.setDo_link(link.getText().toString());
+                    update.setDo_description(description.getText().toString());
                     listCallback.onAcceptDocument(update, true);
                 } else {
                     Pojo_Document doc = new Pojo_Document(UUID.randomUUID().toString(), profile.getUserCommunity(), title.getText().toString(), description.getText().toString(), link.getText().toString(), false);

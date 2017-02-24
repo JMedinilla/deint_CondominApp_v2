@@ -23,15 +23,7 @@ public class BoardPresenterImpl implements IBoardPresenter {
      * Method to get all entries
      */
     public List<Pojo_Entry> selectFirstEntries() {
-        return DatabaseManager_Entry.getInstance().getSecondEntries(profile.getUserCommunity());
-    }
-
-    @Override
-    /**
-     * Method to get an entry
-     */
-    public Pojo_Entry selectFirstEntry(String id) {
-        return null;
+        return DatabaseManager_Entry.getInstance().getFirstEntries(profile.getUserCommunity());
     }
 
     @Override
@@ -40,15 +32,12 @@ public class BoardPresenterImpl implements IBoardPresenter {
      */
     public int insertFirstEntry(Pojo_Entry entry) {
         int result = -1;
-        /*
-        if (!Repository_Entry_First.getInstance().contains(entry)) {
-            Repository_Entry_First.getInstance().add(entry);
+        if (DatabaseManager_Entry.getInstance().addEntry(entry) >= 0) {
             result = 0;
             view.showMessage(R.string.inserted, false);
         } else {
-            view.showMessage(R.string.exists, false);
+            view.showMessage(R.string.addError, false);
         }
-        */
         return result;
     }
 
@@ -57,7 +46,14 @@ public class BoardPresenterImpl implements IBoardPresenter {
      * Method to update an entry
      */
     public int updateFirstEntry(Pojo_Entry entry) {
-        return 0;
+        int result = -1;
+        if (DatabaseManager_Entry.getInstance().updateEntry(entry) >= 0) {
+            result = 0;
+            view.showMessage(R.string.updated, false);
+        } else {
+            view.showMessage(R.string.updateError, false);
+        }
+        return result;
     }
 
     @Override
@@ -66,11 +62,12 @@ public class BoardPresenterImpl implements IBoardPresenter {
      */
     public int deleteFirstEntry(Pojo_Entry entry) {
         int result = -1;
-        /*
-        if (Repository_Entry_First.getInstance().getEntries().remove(entry)) {
+        if (DatabaseManager_Entry.getInstance().deleteEntry(entry) >= 0) {
             result = 0;
+            view.showMessage(R.string.deleted, false);
+        } else {
+            view.showMessage(R.string.deleteError, false);
         }
-        */
         return result;
     }
 

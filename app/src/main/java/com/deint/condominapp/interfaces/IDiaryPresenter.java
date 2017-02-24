@@ -10,8 +10,6 @@ import java.util.List;
 public interface IDiaryPresenter {
     List<Pojo_Note> selectNotes();
 
-    Pojo_Note selectNote(String id);
-
     int insertNote(Pojo_Note note);
 
     int updateNote(Pojo_Note note);

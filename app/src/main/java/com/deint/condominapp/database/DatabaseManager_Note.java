@@ -1,5 +1,6 @@
 package com.deint.condominapp.database;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -52,19 +53,47 @@ public class DatabaseManager_Note {
         return notes;
     }
 
-    public Pojo_Note getNote(String id) {
-        return null;
+    public long addNote(Pojo_Note note) {
+        ContentValues values = new ContentValues();
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        values.put(DatabaseContract.NOTE_TABLE.COLUMN_ID, note.getNo_id());
+        values.put(DatabaseContract.NOTE_TABLE.COLUMN_COMMUNITY, note.getNo_community());
+        values.put(DatabaseContract.NOTE_TABLE.COLUMN_DATE, note.getNo_date());
+        values.put(DatabaseContract.NOTE_TABLE.COLUMN_TITLE, note.getNo_title());
+        values.put(DatabaseContract.NOTE_TABLE.COLUMN_CONTENT, note.getNo_content());
+        if (note.isNo_deleted()) {
+            values.put(DatabaseContract.NOTE_TABLE.COLUMN_DELETED, 1);
+        } else {
+            values.put(DatabaseContract.NOTE_TABLE.COLUMN_DELETED, 0);
+        }
+        long result = sqLiteDatabase.insert(DatabaseContract.NOTE_TABLE.TABLE_NAME, null, values);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 
-    public void addNote(Pojo_Note note) {
-        //
+    public int updateNote(Pojo_Note note) {
+        ContentValues values = new ContentValues();
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        values.put(DatabaseContract.NOTE_TABLE.COLUMN_COMMUNITY, note.getNo_community());
+        values.put(DatabaseContract.NOTE_TABLE.COLUMN_DATE, note.getNo_date());
+        values.put(DatabaseContract.NOTE_TABLE.COLUMN_TITLE, note.getNo_title());
+        values.put(DatabaseContract.NOTE_TABLE.COLUMN_CONTENT, note.getNo_content());
+        if (note.isNo_deleted()) {
+            values.put(DatabaseContract.NOTE_TABLE.COLUMN_DELETED, 1);
+        } else {
+            values.put(DatabaseContract.NOTE_TABLE.COLUMN_DELETED, 0);
+        }
+        String[] where = {String.valueOf(note.getNo_id())};
+        int result = sqLiteDatabase.update(DatabaseContract.NOTE_TABLE.TABLE_NAME, values, "_id = ?", where);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 
-    public void updateNote(Pojo_Note note) {
-        //
-    }
-
-    public void deleteNote(Pojo_Note note) {
-        //
+    public int deleteNote(Pojo_Note note) {
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        String[] where = {String.valueOf(note.getNo_id())};
+        int result = sqLiteDatabase.delete(DatabaseContract.NOTE_TABLE.TABLE_NAME, "_id = ?", where);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 }

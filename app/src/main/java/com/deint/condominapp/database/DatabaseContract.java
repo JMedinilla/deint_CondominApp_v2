@@ -109,9 +109,6 @@ class DatabaseContract {
 
         static final String SQL_DELETION =
                 String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
-
-        static final String INCIDENT_INSERT =
-                "INSERT INTO incident VALUES ('aaaaa','moronlu18',1,'date','Edificio demolido','Pues eso que me he levantado y no tengo casa','http://www.enteratelorca.com/wp-content/uploads/Captura-de-pantalla-2013-01-26-a-las-06.42.19.png',0)";
     }
 
     static class ENTRY_TABLE implements BaseColumns {

@@ -23,7 +23,7 @@
         <LinearLayout
             android:id="@+id/adapterBoard_linear"
             android:layout_width="match_parent"
-            android:layout_height="24dp"
+            android:layout_height="28dp"
             android:layout_marginLeft="6dp"
             android:layout_marginStart="6dp"
             android:layout_marginTop="6dp"
@@ -33,24 +33,14 @@
 
             <TextView
                 android:id="@+id/adapterBoard_txtTitle"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
                 android:gravity="center"
                 android:maxEms="22"
                 android:maxLength="22"
                 android:maxLines="1"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/adapterBoard_txtDate"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="12sp" />
         </LinearLayout>
 
         <TextView

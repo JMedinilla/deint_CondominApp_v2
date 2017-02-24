@@ -91,19 +91,15 @@ public class DatabaseManager_User {
         return users;
     }
 
-    public Pojo_User getUser(String id) {
-        return null;
+    public long addUser(Pojo_User user) {
+        return 0;
     }
 
-    public void addUser(Pojo_User user) {
-        //
+    public int updateUser(Pojo_User user) {
+        return 0;
     }
 
-    public void updateUser(Pojo_User user) {
-        //
-    }
-
-    public void deleteUser(Pojo_User user) {
-        //
+    public int deleteUser(Pojo_User user) {
+        return 0;
     }
 }

@@ -28,18 +28,17 @@ public class MeetingPresenterImpl implements IMeetingPresenter {
 
     @Override
     /**
-     * Method to get a meeting
-     */
-    public Pojo_Meeting selectMeeting(int id) {
-        return null;
-    }
-
-    @Override
-    /**
      * Method to add a meeting
      */
     public int insertMeeting(Pojo_Meeting meeting) {
-        return 0;
+        int result = -1;
+        if (DatabaseManager_Meeting.getInstance().addMeeting(meeting) >= 0) {
+            result = 0;
+            view.showMessage(R.string.inserted, false);
+        } else {
+            view.showMessage(R.string.addError, false);
+        }
+        return result;
     }
 
     @Override
@@ -47,7 +46,14 @@ public class MeetingPresenterImpl implements IMeetingPresenter {
      * Method to update a meeting
      */
     public int updateMeeting(Pojo_Meeting meeting) {
-        return 0;
+        int result = -1;
+        if (DatabaseManager_Meeting.getInstance().updateMeeting(meeting) >= 0) {
+            result = 0;
+            view.showMessage(R.string.updated, false);
+        } else {
+            view.showMessage(R.string.updateError, false);
+        }
+        return result;
     }
 
     @Override
@@ -55,7 +61,14 @@ public class MeetingPresenterImpl implements IMeetingPresenter {
      * Method to delete a meeting
      */
     public int deleteMeeting(Pojo_Meeting meeting) {
-        return 0;
+        int result = -1;
+        if (DatabaseManager_Meeting.getInstance().deleteMeeting(meeting) >= 0) {
+            result = 0;
+            view.showMessage(R.string.deleted, false);
+        } else {
+            view.showMessage(R.string.deleteError, false);
+        }
+        return result;
     }
 
     @Override

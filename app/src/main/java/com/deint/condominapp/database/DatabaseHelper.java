@@ -9,7 +9,7 @@ import com.deint.condominapp.CondominappApplication;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "condominapp.db";
 
     private static volatile DatabaseHelper instance;
@@ -43,7 +43,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             sqLiteDatabase.execSQL(DatabaseContract.COMMUNITY_TABLE.COMMUNITY_INSERT);
             sqLiteDatabase.execSQL(DatabaseContract.USER_TABLE.USER_INSERT);
-            sqLiteDatabase.execSQL(DatabaseContract.INCIDENT_TABLE.INCIDENT_INSERT);
             sqLiteDatabase.setTransactionSuccessful();
         } finally {
             sqLiteDatabase.endTransaction();
@@ -86,18 +85,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Method to open the access to the database at the application launch
+     *
+     * @return Access to the database
+     */
     public SQLiteDatabase open() {
         return getWritableDatabase();
     }
 
-    public synchronized SQLiteDatabase openDatabase() {
+    /**
+     * Method that returns the database access to use it
+     *
+     * @return Database access
+     */
+    synchronized SQLiteDatabase openDatabase() {
         if (openCounter.incrementAndGet() == 1) {
             database = getWritableDatabase();
         }
         return database;
     }
 
-    public synchronized void closeDatabase() {
+    /**
+     * Method that close the database access
+     */
+    synchronized void closeDatabase() {
         if (openCounter.decrementAndGet() == 0) {
             database.close();
         }

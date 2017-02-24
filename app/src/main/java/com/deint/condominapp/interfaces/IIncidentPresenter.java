@@ -10,8 +10,6 @@ import java.util.List;
 public interface IIncidentPresenter {
     List<Pojo_Incident> selectIncidents();
 
-    Pojo_Incident selectIncident(String id);
-
     int insertIncident(Pojo_Incident incident);
 
     int updateIncident(Pojo_Incident incident);

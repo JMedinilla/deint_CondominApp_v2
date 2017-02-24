@@ -28,27 +28,16 @@ public class DocumentPresenterImpl implements IDocumentPresenter {
 
     @Override
     /**
-     * Method to get a document
-     */
-    public Pojo_Document selectDocument(String id) {
-        return null;
-    }
-
-    @Override
-    /**
      * Method to add a document
      */
     public int insertDocument(Pojo_Document document) {
         int result = -1;
-        /*
-        if (!Repository_Document.getInstance().contains(document)) {
-            Repository_Document.getInstance().add(document);
+        if (DatabaseManager_Document.getInstance().addDocument(document) >= 0) {
             result = 0;
             view.showMessage(R.string.inserted, false);
         } else {
-            view.showMessage(R.string.exists, false);
+            view.showMessage(R.string.addError, false);
         }
-        */
         return result;
     }
 
@@ -57,7 +46,14 @@ public class DocumentPresenterImpl implements IDocumentPresenter {
      * Method to update a document
      */
     public int updateDocument(Pojo_Document document) {
-        return 0;
+        int result = -1;
+        if (DatabaseManager_Document.getInstance().updateDocument(document) >= 0) {
+            result = 0;
+            view.showMessage(R.string.updated, false);
+        } else {
+            view.showMessage(R.string.updateError, false);
+        }
+        return result;
     }
 
     @Override
@@ -66,11 +62,12 @@ public class DocumentPresenterImpl implements IDocumentPresenter {
      */
     public int deleteDocument(Pojo_Document document) {
         int result = -1;
-        /*
-        if (Repository_Document.getInstance().getDocuments().remove(document)) {
+        if (DatabaseManager_Document.getInstance().deleteDocument(document) >= 0) {
             result = 0;
+            view.showMessage(R.string.deleted, false);
+        } else {
+            view.showMessage(R.string.deleteError, false);
         }
-        */
         return result;
     }
 

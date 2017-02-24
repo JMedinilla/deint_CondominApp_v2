@@ -10,8 +10,6 @@ import java.util.List;
 public interface IBoardPresenter {
     List<Pojo_Entry> selectFirstEntries();
 
-    Pojo_Entry selectFirstEntry(String id);
-
     int insertFirstEntry(Pojo_Entry entry);
 
     int updateFirstEntry(Pojo_Entry entry);

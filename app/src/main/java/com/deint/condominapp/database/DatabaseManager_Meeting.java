@@ -1,5 +1,6 @@
 package com.deint.condominapp.database;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -50,19 +51,43 @@ public class DatabaseManager_Meeting {
         return meetings;
     }
 
-    public Pojo_Meeting getMeeting(int id) {
-        return null;
+    public long addMeeting(Pojo_Meeting meeting) {
+        ContentValues values = new ContentValues();
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        values.put(DatabaseContract.MEETING_TABLE.COLUMN_ID, meeting.getMe_id());
+        values.put(DatabaseContract.MEETING_TABLE.COLUMN_COMMUNITY, meeting.getMe_community());
+        values.put(DatabaseContract.MEETING_TABLE.COLUMN_DATE, meeting.getMe_date());
+        if (meeting.isMe_deleted()) {
+            values.put(DatabaseContract.MEETING_TABLE.COLUMN_DELETED, 1);
+        } else {
+            values.put(DatabaseContract.MEETING_TABLE.COLUMN_DELETED, 0);
+        }
+        long result = sqLiteDatabase.insert(DatabaseContract.MEETING_TABLE.TABLE_NAME, null, values);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 
-    public void addMeeting(Pojo_Meeting meeting) {
-        //
+    public int updateMeeting(Pojo_Meeting meeting) {
+        ContentValues values = new ContentValues();
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        values.put(DatabaseContract.MEETING_TABLE.COLUMN_COMMUNITY, meeting.getMe_community());
+        values.put(DatabaseContract.MEETING_TABLE.COLUMN_DATE, meeting.getMe_date());
+        if (meeting.isMe_deleted()) {
+            values.put(DatabaseContract.MEETING_TABLE.COLUMN_DELETED, 1);
+        } else {
+            values.put(DatabaseContract.MEETING_TABLE.COLUMN_DELETED, 0);
+        }
+        String[] where = {String.valueOf(meeting.getMe_id())};
+        int result = sqLiteDatabase.update(DatabaseContract.MEETING_TABLE.TABLE_NAME, values, "_id = ?", where);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 
-    public void updateMeeting(Pojo_Meeting meeting) {
-        //
-    }
-
-    public void deleteMeeting(Pojo_Meeting meeting) {
-        //
+    public int deleteMeeting(Pojo_Meeting meeting) {
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        String[] where = {String.valueOf(meeting.getMe_id())};
+        int result = sqLiteDatabase.delete(DatabaseContract.MEETING_TABLE.TABLE_NAME, "_id = ?", where);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 }

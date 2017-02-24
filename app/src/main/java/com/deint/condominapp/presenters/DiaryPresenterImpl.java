@@ -28,27 +28,16 @@ public class DiaryPresenterImpl implements IDiaryPresenter {
 
     @Override
     /**
-     * Method to get a note
-     */
-    public Pojo_Note selectNote(String id) {
-        return null;
-    }
-
-    @Override
-    /**
      * Method to add a note
      */
     public int insertNote(Pojo_Note note) {
         int result = -1;
-        /*
-        if (!Repository_Note.getInstance().contains(note)) {
-            Repository_Note.getInstance().add(note);
+        if (DatabaseManager_Note.getInstance().addNote(note) >= 0) {
             result = 0;
             view.showMessage(R.string.inserted, false);
         } else {
-            view.showMessage(R.string.exists, false);
+            view.showMessage(R.string.addError, false);
         }
-        */
         return result;
     }
 
@@ -57,7 +46,14 @@ public class DiaryPresenterImpl implements IDiaryPresenter {
      * Method to update a note
      */
     public int updateNote(Pojo_Note note) {
-        return 0;
+        int result = -1;
+        if (DatabaseManager_Note.getInstance().updateNote(note) >= 0) {
+            result = 0;
+            view.showMessage(R.string.updated, false);
+        } else {
+            view.showMessage(R.string.updateError, false);
+        }
+        return result;
     }
 
     @Override
@@ -66,11 +62,12 @@ public class DiaryPresenterImpl implements IDiaryPresenter {
      */
     public int deleteNote(Pojo_Note note) {
         int result = -1;
-        /*
-        if (Repository_Note.getInstance().getNotes().remove(note)) {
+        if (DatabaseManager_Note.getInstance().deleteNote(note) >= 0) {
             result = 0;
+            view.showMessage(R.string.deleted, false);
+        } else {
+            view.showMessage(R.string.deleteError, false);
         }
-        */
         return result;
     }
 

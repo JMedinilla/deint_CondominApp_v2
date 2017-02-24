@@ -59,6 +59,8 @@ public class Form_Diary extends Fragment {
             @Override
             public void onClick(View view) {
                 if (UPDATE_MODE) {
+                    update.setNo_title(title.getText().toString());
+                    update.setNo_content(description.getText().toString());
                     listCallback.onAcceptDiary(update, true);
                 } else {
                     Calendar calendar = Calendar.getInstance();

@@ -56,10 +56,9 @@
     <string name="error_Description">Descripción inválida</string>
     <string name="error_Link">Enlace inválido</string>
     <string name="error_Title">Título inválido</string>
-    <string name="exists">Este elemento ya existe</string>
     <string name="fourNavAbout">Acerca de</string>
     <string name="fourNavOption">Otros</string>
-    <string name="inserted">Insertado</string>
+    <string name="inserted">Elemento añadido</string>
     <string name="navBoard">Tablón principal</string>
     <string name="navCBoard">Tablón comunitario</string>
     <string name="navCommunities">Comunidades</string>
@@ -80,7 +79,6 @@
     <string name="deleted">Elemento eliminado</string>
     <string name="menuContext_delete">Eliminar</string>
     <string name="menuContext_update">Actualizar</string>
-    <string name="no_deleted">No se ha podido eliminar</string>
     <string name="detail_close">Cerrar</string>
     <string name="detail_delete">Eliminar</string>
     <string name="detail_document_btnDownload">Descargar</string>
@@ -93,4 +91,8 @@
     <string name="detail_incident_user_default">Autor:</string>
     <string name="fragment_qr_txtFlash">Activar flash</string>
     <string name="no_user">El usuario no existe</string>
+    <string name="addError">No se ha podido añadir</string>
+    <string name="deleteError">No se ha podido eliminar</string>
+    <string name="updateError">No se ha podido modificar</string>
+    <string name="updated">Elemento modificado</string>
 </resources>

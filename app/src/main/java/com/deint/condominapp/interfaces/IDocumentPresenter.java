@@ -10,8 +10,6 @@ import java.util.List;
 public interface IDocumentPresenter {
     List<Pojo_Document> selectDocuments();
 
-    Pojo_Document selectDocument(String id);
-
     int insertDocument(Pojo_Document document);
 
     int updateDocument(Pojo_Document document);

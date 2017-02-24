@@ -1,5 +1,6 @@
 package com.deint.condominapp.database;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -54,19 +55,51 @@ public class DatabaseManager_Incident {
         return incidents;
     }
 
-    public Pojo_Incident getIncident(String id) {
-        return null;
+    public long addIncident(Pojo_Incident incident) {
+        ContentValues values = new ContentValues();
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_ID, incident.getIn_id());
+        values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_USER, incident.getIn_userid());
+        values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_COMMUNITY, incident.getIn_usercommunity());
+        values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_DATE, incident.getIn_date());
+        values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_TITLE, incident.getIn_title());
+        values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_DESCRIPTION, incident.getIn_description());
+        values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_PHOTO, incident.getIn_photo());
+        if (incident.isIn_deleted()) {
+            values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_DELETED, 1);
+        } else {
+            values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_DELETED, 0);
+        }
+        long result = sqLiteDatabase.insert(DatabaseContract.INCIDENT_TABLE.TABLE_NAME, null, values);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 
-    public void addIncident(Pojo_Incident incident) {
-        //
+    public int updateIncident(Pojo_Incident incident) {
+        ContentValues values = new ContentValues();
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_USER, incident.getIn_userid());
+        values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_COMMUNITY, incident.getIn_usercommunity());
+        values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_DATE, incident.getIn_date());
+        values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_TITLE, incident.getIn_title());
+        values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_DESCRIPTION, incident.getIn_description());
+        values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_PHOTO, incident.getIn_photo());
+        if (incident.isIn_deleted()) {
+            values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_DELETED, 1);
+        } else {
+            values.put(DatabaseContract.INCIDENT_TABLE.COLUMN_DELETED, 0);
+        }
+        String[] where = {String.valueOf(incident.getIn_id())};
+        int result = sqLiteDatabase.update(DatabaseContract.INCIDENT_TABLE.TABLE_NAME, values, "_id = ?", where);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 
-    public void updateIncident(Pojo_Incident incident) {
-        //
-    }
-
-    public void deleteIncident(Pojo_Incident incident) {
-        //
+    public int deleteIncident(Pojo_Incident incident) {
+        SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
+        String[] where = {String.valueOf(incident.getIn_id())};
+        int result = sqLiteDatabase.delete(DatabaseContract.INCIDENT_TABLE.TABLE_NAME, "_id = ?", where);
+        DatabaseHelper.getInstance().closeDatabase();
+        return result;
     }
 }
