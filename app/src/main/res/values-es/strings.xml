@@ -95,4 +95,13 @@
     <string name="deleteError">No se ha podido eliminar</string>
     <string name="updateError">No se ha podido modificar</string>
     <string name="updated">Elemento modificado</string>
+    <string name="receiver_delete">Elemento eliminado</string>
+    <string name="receiver_document_delete">Se ha eliminado un documento</string>
+    <string name="receiver_document_insert">Hay un nuevo documento</string>
+    <string name="receiver_document_update">Se ha modificado un documento</string>
+    <string name="receiver_incident_delete">Se ha eliminado una incidencia</string>
+    <string name="receiver_incident_insert">Hay una nueva incidencia</string>
+    <string name="receiver_incident_update">Se ha modificado una incidencia</string>
+    <string name="receiver_insert">Nuevo elemento</string>
+    <string name="receiver_update">Elemento modificado</string>
 </resources>

@@ -11,7 +11,7 @@
     <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
 
     <application
-        android:name="com.deint.condominapp.CondominappApplication"
+        android:name="com.deint.condominapp.others.CondominappApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -54,7 +54,23 @@
             android:name="com.deint.condominapp.preferences.application.Settings"
             android:theme="@style/AppTheme.ActionBar" />
         <activity android:name="com.deint.condominapp.Activity_QR" />
-        <activity android:name="com.deint.condominapp.Activity_ViewImage"></activity>
+        <activity android:name="com.deint.condominapp.Activity_ViewImage" />
+
+        <receiver android:name=".others.receivers.InsertReceiver">
+            <intent-filter>
+                <action android:name="com.deint.condominapp.action.INSERTED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".others.receivers.UpdateReceiver">
+            <intent-filter>
+                <action android:name="com.deint.condominapp.action.UPDATED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".others.receivers.DeleteReceiver">
+            <intent-filter>
+                <action android:name="com.deint.condominapp.action.DELETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -2,7 +2,7 @@ package com.deint.condominapp.presenters;
 
 import android.os.AsyncTask;
 
-import com.deint.condominapp.CondominappApplication;
+import com.deint.condominapp.others.CondominappApplication;
 import com.deint.condominapp.R;
 import com.deint.condominapp.database.DatabaseManager_Meeting;
 import com.deint.condominapp.interfaces.IMeetingPresenter;

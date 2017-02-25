@@ -1,4 +1,4 @@
-package com.deint.condominapp;
+package com.deint.condominapp.others;
 
 import android.app.Application;
 import android.content.Context;

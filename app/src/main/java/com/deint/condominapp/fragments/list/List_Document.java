@@ -1,6 +1,7 @@
 package com.deint.condominapp.fragments.list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +25,9 @@ import com.deint.condominapp.Activity_Home;
 import com.deint.condominapp.R;
 import com.deint.condominapp.adapters.Adapter_Document;
 import com.deint.condominapp.interfaces.IDocumentPresenter;
+import com.deint.condominapp.others.receivers.DeleteReceiver;
+import com.deint.condominapp.others.receivers.InsertReceiver;
+import com.deint.condominapp.others.receivers.UpdateReceiver;
 import com.deint.condominapp.pojos.Pojo_Document;
 import com.deint.condominapp.presenters.DocumentPresenterImpl;
 
@@ -98,16 +102,12 @@ public class List_Document extends Fragment implements IDocumentPresenter.View {
      * @param update   Boolean to know if the element has to be inserted or updated
      */
     public void recieveDocumentFromHome(Pojo_Document document, boolean update) {
-        boolean result = false;
         if (documentPresenter.validateDocument(document)) {
             if (update) {
-                result = documentPresenter.updateDocument(document) == 0;
+                documentPresenter.updateDocument(document);
             } else {
-                result = documentPresenter.insertDocument(document) == 0;
+                documentPresenter.insertDocument(document);
             }
-        }
-        if (result) {
-            getActivity().onBackPressed();
         }
     }
 
@@ -138,12 +138,7 @@ public class List_Document extends Fragment implements IDocumentPresenter.View {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (documentPresenter.deleteDocument(document) == 0) {
-                            showMessage(R.string.deleted, false);
-                            documentPresenter.selectDocuments();
-                        } else {
-                            showMessage(R.string.deleteError, true);
-                        }
+                        documentPresenter.deleteDocument(document);
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -177,6 +172,36 @@ public class List_Document extends Fragment implements IDocumentPresenter.View {
 
     public void refreshElements(List<Pojo_Document> pojo_documents) {
         adapter_document.updateElements(pojo_documents);
+    }
+
+    @Override
+    public void insertResponse(boolean result) {
+        if (result) {
+            Intent intent = new Intent(InsertReceiver.ACTION_INSERTED);
+            intent.putExtra("receiver_message", getString(R.string.receiver_document_insert));
+            getActivity().getApplicationContext().sendBroadcast(intent);
+            getActivity().onBackPressed();
+        }
+    }
+
+    @Override
+    public void updateResponse(boolean result) {
+        if (result) {
+            Intent intent = new Intent(UpdateReceiver.ACTION_UPDATED);
+            intent.putExtra("receiver_message", getString(R.string.receiver_document_update));
+            getActivity().getApplicationContext().sendBroadcast(intent);
+            getActivity().onBackPressed();
+        }
+    }
+
+    @Override
+    public void deleteResponse(boolean result) {
+        if (result) {
+            Intent intent = new Intent(DeleteReceiver.ACTION_DELETED);
+            intent.putExtra("receiver_message", getString(R.string.receiver_document_delete));
+            getActivity().getApplicationContext().sendBroadcast(intent);
+            documentPresenter.selectDocuments();
+        }
     }
 
     @Override

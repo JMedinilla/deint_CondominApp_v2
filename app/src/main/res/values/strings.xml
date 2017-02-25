@@ -96,4 +96,13 @@
     <string name="detail_document_btnDownload">Download</string>
     <string name="no_user">The user does not exist</string>
     <string name="fragment_qr_txtFlash">Activate flash</string>
+    <string name="receiver_incident_insert">There is a new incident</string>
+    <string name="receiver_incident_update">An incident has been updated</string>
+    <string name="receiver_incident_delete">An incident has been deleted</string>
+    <string name="receiver_document_insert">There is a new document</string>
+    <string name="receiver_document_update">A document has been updated</string>
+    <string name="receiver_document_delete">A document has been deleted</string>
+    <string name="receiver_insert">New element</string>
+    <string name="receiver_update">Updated element</string>
+    <string name="receiver_delete">Deleted element</string>
 </resources>

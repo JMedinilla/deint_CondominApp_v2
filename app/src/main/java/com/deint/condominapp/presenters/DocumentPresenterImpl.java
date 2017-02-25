@@ -2,7 +2,7 @@ package com.deint.condominapp.presenters;
 
 import android.os.AsyncTask;
 
-import com.deint.condominapp.CondominappApplication;
+import com.deint.condominapp.others.CondominappApplication;
 import com.deint.condominapp.R;
 import com.deint.condominapp.database.DatabaseManager_Document;
 import com.deint.condominapp.interfaces.IDocumentPresenter;
@@ -48,45 +48,90 @@ public class DocumentPresenterImpl implements IDocumentPresenter {
     /**
      * Method to add a document
      */
-    public int insertDocument(Pojo_Document document) {
-        int result = -1;
-        if (DatabaseManager_Document.getInstance().addDocument(document) >= 0) {
-            result = 0;
-            view.showMessage(R.string.inserted, false);
-        } else {
-            view.showMessage(R.string.addError, false);
-        }
-        return result;
+    public void insertDocument(final Pojo_Document document) {
+        new AsyncTask<Void, Void, Long>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Long doInBackground(Void... voids) {
+                return DatabaseManager_Document.getInstance().addDocument(document);
+            }
+
+            @Override
+            protected void onPostExecute(Long aLong) {
+                super.onPostExecute(aLong);
+                if (aLong != -1) {
+                    view.showMessage(R.string.inserted, false);
+                    view.insertResponse(true);
+                } else {
+                    view.showMessage(R.string.addError, true);
+                    view.insertResponse(false);
+                }
+            }
+        }.execute();
     }
 
     @Override
     /**
      * Method to update a document
      */
-    public int updateDocument(Pojo_Document document) {
-        int result = -1;
-        if (DatabaseManager_Document.getInstance().updateDocument(document) >= 0) {
-            result = 0;
-            view.showMessage(R.string.updated, false);
-        } else {
-            view.showMessage(R.string.updateError, false);
-        }
-        return result;
+    public void updateDocument(final Pojo_Document document) {
+        new AsyncTask<Void, Void, Integer>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Integer doInBackground(Void... voids) {
+                return DatabaseManager_Document.getInstance().updateDocument(document);
+            }
+
+            @Override
+            protected void onPostExecute(Integer integer) {
+                super.onPostExecute(integer);
+                if (integer > 0) {
+                    view.showMessage(R.string.updated, false);
+                    view.updateResponse(true);
+                } else {
+                    view.showMessage(R.string.updateError, true);
+                    view.updateResponse(false);
+                }
+            }
+        }.execute();
     }
 
     @Override
     /**
      * Method to delete a document
      */
-    public int deleteDocument(Pojo_Document document) {
-        int result = -1;
-        if (DatabaseManager_Document.getInstance().deleteDocument(document) >= 0) {
-            result = 0;
-            view.showMessage(R.string.deleted, false);
-        } else {
-            view.showMessage(R.string.deleteError, false);
-        }
-        return result;
+    public void deleteDocument(final Pojo_Document document) {
+        new AsyncTask<Void, Void, Integer>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Integer doInBackground(Void... voids) {
+                return DatabaseManager_Document.getInstance().deleteDocument(document);
+            }
+
+            @Override
+            protected void onPostExecute(Integer integer) {
+                super.onPostExecute(integer);
+                if (integer > 0) {
+                    view.showMessage(R.string.deleted, false);
+                    view.deleteResponse(true);
+                } else {
+                    view.showMessage(R.string.deleteError, true);
+                    view.deleteResponse(false);
+                }
+            }
+        }.execute();
     }
 
     @Override

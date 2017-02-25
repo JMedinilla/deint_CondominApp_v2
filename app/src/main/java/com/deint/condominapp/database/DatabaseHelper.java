@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 
-import com.deint.condominapp.CondominappApplication;
+import com.deint.condominapp.others.CondominappApplication;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

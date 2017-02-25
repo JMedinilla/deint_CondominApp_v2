@@ -26,6 +26,9 @@ import com.deint.condominapp.Activity_ViewImage;
 import com.deint.condominapp.R;
 import com.deint.condominapp.adapters.Adapter_Incident;
 import com.deint.condominapp.interfaces.IIncidentPresenter;
+import com.deint.condominapp.others.receivers.DeleteReceiver;
+import com.deint.condominapp.others.receivers.InsertReceiver;
+import com.deint.condominapp.others.receivers.UpdateReceiver;
 import com.deint.condominapp.pojos.Pojo_Incident;
 import com.deint.condominapp.presenters.IncidentPresenterImpl;
 import com.squareup.picasso.Picasso;
@@ -184,6 +187,9 @@ public class List_Incident extends Fragment implements IIncidentPresenter.View {
     @Override
     public void insertResponse(boolean result) {
         if (result) {
+            Intent intent = new Intent(InsertReceiver.ACTION_INSERTED);
+            intent.putExtra("receiver_message", getString(R.string.receiver_incident_insert));
+            getActivity().getApplicationContext().sendBroadcast(intent);
             getActivity().onBackPressed();
         }
     }
@@ -191,6 +197,9 @@ public class List_Incident extends Fragment implements IIncidentPresenter.View {
     @Override
     public void updateResponse(boolean result) {
         if (result) {
+            Intent intent = new Intent(UpdateReceiver.ACTION_UPDATED);
+            intent.putExtra("receiver_message", getString(R.string.receiver_incident_update));
+            getActivity().getApplicationContext().sendBroadcast(intent);
             getActivity().onBackPressed();
         }
     }
@@ -198,7 +207,9 @@ public class List_Incident extends Fragment implements IIncidentPresenter.View {
     @Override
     public void deleteResponse(boolean result) {
         if (result) {
-            getActivity().onBackPressed();
+            Intent intent = new Intent(DeleteReceiver.ACTION_DELETED);
+            intent.putExtra("receiver_message", getString(R.string.receiver_incident_delete));
+            getActivity().getApplicationContext().sendBroadcast(intent);
             incidentPresenter.selectIncidents();
         }
     }

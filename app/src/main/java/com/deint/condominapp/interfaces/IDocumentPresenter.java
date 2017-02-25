@@ -10,11 +10,11 @@ import java.util.List;
 public interface IDocumentPresenter {
     void selectDocuments();
 
-    int insertDocument(Pojo_Document document);
+    void insertDocument(Pojo_Document document);
 
-    int updateDocument(Pojo_Document document);
+    void updateDocument(Pojo_Document document);
 
-    int deleteDocument(Pojo_Document document);
+    void deleteDocument(Pojo_Document document);
 
     boolean validateDocument(Pojo_Document document);
 
@@ -25,5 +25,11 @@ public interface IDocumentPresenter {
         void showMessage(int msg, boolean error);
 
         void refreshElements(List<Pojo_Document> pojo_documents);
+
+        void insertResponse(boolean result);
+
+        void updateResponse(boolean result);
+
+        void deleteResponse(boolean result);
     }
 }
