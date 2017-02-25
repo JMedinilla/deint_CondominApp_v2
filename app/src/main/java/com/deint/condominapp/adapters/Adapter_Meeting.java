@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.deint.condominapp.R;
 import com.deint.condominapp.pojos.Pojo_Meeting;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -67,7 +69,13 @@ public class Adapter_Meeting extends ArrayAdapter<Pojo_Meeting> {
      * @param comparator Order criterion
      */
     public void sortMeetings(Comparator<Pojo_Meeting> comparator) {
-        this.sort(comparator);
+        ArrayList<Pojo_Meeting> list = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++) {
+            list.add(getItem(i));
+        }
+        Collections.sort(list, comparator);
+        clear();
+        addAll(list);
         notifyDataSetChanged();
     }
 }

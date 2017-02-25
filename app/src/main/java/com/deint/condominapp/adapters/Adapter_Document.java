@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.deint.condominapp.R;
 import com.deint.condominapp.pojos.Pojo_Document;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -72,7 +74,13 @@ public class Adapter_Document extends ArrayAdapter<Pojo_Document> {
      * @param comparator Order criterion
      */
     public void sortDocuments(Comparator<Pojo_Document> comparator) {
-        this.sort(comparator);
+        ArrayList<Pojo_Document> list = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++) {
+            list.add(getItem(i));
+        }
+        Collections.sort(list, comparator);
+        clear();
+        addAll(list);
         notifyDataSetChanged();
     }
 }

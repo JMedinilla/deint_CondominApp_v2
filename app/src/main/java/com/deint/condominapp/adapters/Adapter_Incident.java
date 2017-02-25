@@ -14,6 +14,8 @@ import com.deint.condominapp.R;
 import com.deint.condominapp.pojos.Pojo_Incident;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -81,7 +83,13 @@ public class Adapter_Incident extends ArrayAdapter<Pojo_Incident> {
      * @param comparator Order criterion
      */
     public void sortIncidents(Comparator<Pojo_Incident> comparator) {
-        this.sort(comparator);
+        ArrayList<Pojo_Incident> list = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++) {
+            list.add(getItem(i));
+        }
+        Collections.sort(list, comparator);
+        clear();
+        addAll(list);
         notifyDataSetChanged();
     }
 }

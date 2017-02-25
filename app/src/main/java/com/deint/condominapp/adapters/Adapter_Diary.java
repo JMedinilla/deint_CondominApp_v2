@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.deint.condominapp.R;
 import com.deint.condominapp.pojos.Pojo_Note;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -72,7 +74,13 @@ public class Adapter_Diary extends ArrayAdapter<Pojo_Note> {
      * @param comparator Order criterion
      */
     public void sortDiaries(Comparator<Pojo_Note> comparator) {
-        this.sort(comparator);
+        ArrayList<Pojo_Note> list = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++) {
+            list.add(getItem(i));
+        }
+        Collections.sort(list, comparator);
+        clear();
+        addAll(list);
         notifyDataSetChanged();
     }
 }
