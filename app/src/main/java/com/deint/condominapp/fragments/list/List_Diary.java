@@ -26,6 +26,8 @@ import com.deint.condominapp.interfaces.IDiaryPresenter;
 import com.deint.condominapp.pojos.Pojo_Note;
 import com.deint.condominapp.presenters.DiaryPresenterImpl;
 
+import java.util.List;
+
 public class List_Diary extends Fragment implements IDiaryPresenter.View {
     private FragmentListDiaryListener homeCallback;
 
@@ -59,7 +61,6 @@ public class List_Diary extends Fragment implements IDiaryPresenter.View {
         listView = (ListView) view.findViewById(R.id.fragListDiary_list);
 
         listView.setDivider(null);
-        setListAdapter();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,14 +80,22 @@ public class List_Diary extends Fragment implements IDiaryPresenter.View {
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adapter_diary = new Adapter_Diary(getContext());
+        listView.setAdapter(adapter_diary);
+
+        diaryPresenter.selectNotes();
+    }
+
     /**
      * Method that recieves an element from the Activity and insert or update it
      *
-     * @param note Note to handle
+     * @param note   Note to handle
      * @param update Boolean to know if the element has to be inserted or updated
-     * @return True or False depending on the succes of the operation
      */
-    public boolean recieveNoteFromHome(Pojo_Note note, boolean update) {
+    public void recieveNoteFromHome(Pojo_Note note, boolean update) {
         boolean result = false;
         if (diaryPresenter.validateNote(note)) {
             if (update) {
@@ -95,7 +104,9 @@ public class List_Diary extends Fragment implements IDiaryPresenter.View {
                 result = diaryPresenter.insertNote(note) == 0;
             }
         }
-        return result;
+        if (result) {
+            getActivity().onBackPressed();
+        }
     }
 
     @Override
@@ -127,7 +138,7 @@ public class List_Diary extends Fragment implements IDiaryPresenter.View {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (diaryPresenter.deleteNote(note) == 0) {
                             showMessage(R.string.deleted, false);
-                            setListAdapter();
+                            diaryPresenter.selectNotes();
                         } else {
                             showMessage(R.string.deleteError, true);
                         }
@@ -150,12 +161,8 @@ public class List_Diary extends Fragment implements IDiaryPresenter.View {
         dialog.show();
     }
 
-    /**
-     * Method to set an adapter to the fragment list
-     */
-    private void setListAdapter() {
-        adapter_diary = new Adapter_Diary(getContext(), diaryPresenter.selectNotes());
-        listView.setAdapter(adapter_diary);
+    public void refreshElements(List<Pojo_Note> pojo_notes) {
+        adapter_diary.updateElements(pojo_notes);
     }
 
     @Override

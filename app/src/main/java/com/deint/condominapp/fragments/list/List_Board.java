@@ -26,6 +26,8 @@ import com.deint.condominapp.interfaces.IBoardPresenter;
 import com.deint.condominapp.pojos.Pojo_Entry;
 import com.deint.condominapp.presenters.BoardPresenterImpl;
 
+import java.util.List;
+
 public class List_Board extends Fragment implements IBoardPresenter.View {
     private FragmentListBoardListener homeCallback;
 
@@ -59,7 +61,6 @@ public class List_Board extends Fragment implements IBoardPresenter.View {
         listView = (ListView) view.findViewById(R.id.fragListBoard_list);
 
         listView.setDivider(null);
-        setListAdapter();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,14 +80,22 @@ public class List_Board extends Fragment implements IBoardPresenter.View {
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adapter_board = new Adapter_Board(getContext());
+        listView.setAdapter(adapter_board);
+
+        boardPresenter.selectFirstEntries();
+    }
+
     /**
      * Method that recieves an element from the Activity and insert or update it
      *
      * @param entry  Entry to handle
      * @param update Boolean to know if the element has to be inserted or updated
-     * @return True or False depending on the succes of the operation
      */
-    public boolean recieveEntryFromHome(Pojo_Entry entry, boolean update) {
+    public void recieveEntryFromHome(Pojo_Entry entry, boolean update) {
         boolean result = false;
         if (boardPresenter.validateFirstEntry(entry)) {
             if (update) {
@@ -95,7 +104,9 @@ public class List_Board extends Fragment implements IBoardPresenter.View {
                 result = boardPresenter.insertFirstEntry(entry) == 0;
             }
         }
-        return result;
+        if (result) {
+            getActivity().onBackPressed();
+        }
     }
 
     @Override
@@ -127,7 +138,7 @@ public class List_Board extends Fragment implements IBoardPresenter.View {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (boardPresenter.deleteFirstEntry(entry) == 0) {
                             showMessage(R.string.deleted, false);
-                            setListAdapter();
+                            boardPresenter.selectFirstEntries();
                         } else {
                             showMessage(R.string.deleteError, true);
                         }
@@ -152,12 +163,8 @@ public class List_Board extends Fragment implements IBoardPresenter.View {
         dialog.show();
     }
 
-    /**
-     * Method to set an adapter to the fragment list
-     */
-    private void setListAdapter() {
-        adapter_board = new Adapter_Board(getContext(), boardPresenter.selectFirstEntries());
-        listView.setAdapter(adapter_board);
+    public void refreshElements(List<Pojo_Entry> pojo_entries) {
+        adapter_board.updateElements(pojo_entries);
     }
 
     @Override

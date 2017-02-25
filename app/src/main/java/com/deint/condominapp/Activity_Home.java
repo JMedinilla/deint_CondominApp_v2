@@ -456,9 +456,7 @@ public class Activity_Home extends AppCompatActivity implements
      * The 2nd parameter says if the element has to be added or updated
      */
     public void onAcceptIncident(Pojo_Incident incident, boolean update) {
-        if (list_incident.recieveIncidentFromHome(incident, update)) {
-            onBackPressed();
-        }
+        list_incident.recieveIncidentFromHome(incident, update);
     }
 
     @Override
@@ -467,9 +465,7 @@ public class Activity_Home extends AppCompatActivity implements
      * The 2nd parameter says if the element has to be added or updated
      */
     public void onAcceptBoard(Pojo_Entry entry, boolean update) {
-        if (list_board.recieveEntryFromHome(entry, update)) {
-            onBackPressed();
-        }
+        list_board.recieveEntryFromHome(entry, update);
     }
 
     @Override
@@ -478,9 +474,7 @@ public class Activity_Home extends AppCompatActivity implements
      * The 2nd parameter says if the element has to be added or updated
      */
     public void onAcceptCBoard(Pojo_Entry entry, boolean update) {
-        if (list_cBoard.recieveEntryFromHome(entry, update)) {
-            onBackPressed();
-        }
+        list_cBoard.recieveEntryFromHome(entry, update);
     }
 
     @Override
@@ -489,9 +483,7 @@ public class Activity_Home extends AppCompatActivity implements
      * The 2nd parameter says if the element has to be added or updated
      */
     public void onAcceptDiary(Pojo_Note note, boolean update) {
-        if (list_diary.recieveNoteFromHome(note, update)) {
-            onBackPressed();
-        }
+        list_diary.recieveNoteFromHome(note, update);
     }
 
     @Override
@@ -500,9 +492,7 @@ public class Activity_Home extends AppCompatActivity implements
      * The 2nd parameter says if the element has to be added or updated
      */
     public void onAcceptDocument(Pojo_Document document, boolean update) {
-        if (list_document.recieveDocumentFromHome(document, update)) {
-            onBackPressed();
-        }
+        list_document.recieveDocumentFromHome(document, update);
     }
 
     @Override

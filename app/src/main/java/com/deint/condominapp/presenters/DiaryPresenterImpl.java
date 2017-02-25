@@ -1,5 +1,7 @@
 package com.deint.condominapp.presenters;
 
+import android.os.AsyncTask;
+
 import com.deint.condominapp.CondominappApplication;
 import com.deint.condominapp.R;
 import com.deint.condominapp.database.DatabaseManager_Note;
@@ -22,8 +24,24 @@ public class DiaryPresenterImpl implements IDiaryPresenter {
     /**
      * Method to get all notes
      */
-    public List<Pojo_Note> selectNotes() {
-        return DatabaseManager_Note.getInstance().getNotes(profile.getUserCommunity());
+    public void selectNotes() {
+        new AsyncTask<Void, Void, List<Pojo_Note>>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected List<Pojo_Note> doInBackground(Void... voids) {
+                return DatabaseManager_Note.getInstance().getNotes(profile.getUserCommunity());
+            }
+
+            @Override
+            protected void onPostExecute(List<Pojo_Note> pojo_notes) {
+                super.onPostExecute(pojo_notes);
+                view.refreshElements(pojo_notes);
+            }
+        }.execute();
     }
 
     @Override

@@ -20,9 +20,15 @@ import java.util.List;
 public class Adapter_Incident extends ArrayAdapter<Pojo_Incident> {
     private Context context;
 
-    public Adapter_Incident(Context context, List<Pojo_Incident> pojo_incidents) {
-        super(context, R.layout.adapter_incident, pojo_incidents);
+    public Adapter_Incident(Context context) {
+        super(context, R.layout.adapter_incident);
         this.context = context;
+    }
+
+    public void updateElements(List<Pojo_Incident> pojo_incidents) {
+        this.clear();
+        this.addAll(pojo_incidents);
+        notifyDataSetChanged();
     }
 
     private class IncidentHolder {
@@ -76,10 +82,6 @@ public class Adapter_Incident extends ArrayAdapter<Pojo_Incident> {
      */
     public void sortIncidents(Comparator<Pojo_Incident> comparator) {
         this.sort(comparator);
-        notifyDataSetChanged();
-    }
-
-    public void notifyDelete() {
         notifyDataSetChanged();
     }
 }

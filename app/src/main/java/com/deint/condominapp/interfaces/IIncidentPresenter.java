@@ -8,13 +8,13 @@ import java.util.List;
  * Presenter for the incidents
  */
 public interface IIncidentPresenter {
-    List<Pojo_Incident> selectIncidents();
+    void selectIncidents();
 
-    int insertIncident(Pojo_Incident incident);
+    void insertIncident(Pojo_Incident incident);
 
-    int updateIncident(Pojo_Incident incident);
+    void updateIncident(Pojo_Incident incident);
 
-    int deleteIncident(Pojo_Incident incident);
+    void deleteIncident(Pojo_Incident incident);
 
     boolean validateIncident(Pojo_Incident incident);
 
@@ -23,5 +23,13 @@ public interface IIncidentPresenter {
      */
     interface View {
         void showMessage(int msg, boolean error);
+
+        void refreshElements(List<Pojo_Incident> pojo_incidents);
+
+        void insertResponse(boolean result);
+
+        void updateResponse(boolean result);
+
+        void deleteResponse(boolean result);
     }
 }

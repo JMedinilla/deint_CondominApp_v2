@@ -26,6 +26,8 @@ import com.deint.condominapp.interfaces.ICBoardPresenter;
 import com.deint.condominapp.pojos.Pojo_Entry;
 import com.deint.condominapp.presenters.CBoardPresenterImpl;
 
+import java.util.List;
+
 public class List_CBoard extends Fragment implements ICBoardPresenter.View {
     private FragmentListCBoardListener homeCallback;
 
@@ -59,7 +61,6 @@ public class List_CBoard extends Fragment implements ICBoardPresenter.View {
         listView = (ListView) view.findViewById(R.id.fragListCBoard_list);
 
         listView.setDivider(null);
-        setListAdapter();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,14 +80,22 @@ public class List_CBoard extends Fragment implements ICBoardPresenter.View {
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adapter_cBoard = new Adapter_CBoard(getContext());
+        listView.setAdapter(adapter_cBoard);
+
+        cBoardPresenter.selectSecondEntries();
+    }
+
     /**
      * Method that recieves an element from the Activity and insert or update it
      *
      * @param entry  Entry to handle
      * @param update Boolean to know if the element has to be inserted or updated
-     * @return True or False depending on the succes of the operation
      */
-    public boolean recieveEntryFromHome(Pojo_Entry entry, boolean update) {
+    public void recieveEntryFromHome(Pojo_Entry entry, boolean update) {
         boolean result = false;
         if (cBoardPresenter.validateSecondEntry(entry)) {
             if (update) {
@@ -95,7 +104,9 @@ public class List_CBoard extends Fragment implements ICBoardPresenter.View {
                 result = cBoardPresenter.insertSecondEntry(entry) == 0;
             }
         }
-        return result;
+        if (result) {
+            getActivity().onBackPressed();
+        }
     }
 
     @Override
@@ -127,7 +138,7 @@ public class List_CBoard extends Fragment implements ICBoardPresenter.View {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (cBoardPresenter.deleteSecondEntry(entry) == 0) {
                             showMessage(R.string.deleted, false);
-                            setListAdapter();
+                            cBoardPresenter.selectSecondEntries();
                         } else {
                             showMessage(R.string.deleteError, true);
                         }
@@ -152,12 +163,8 @@ public class List_CBoard extends Fragment implements ICBoardPresenter.View {
         dialog.show();
     }
 
-    /**
-     * Method to set an adapter to the fragment list
-     */
-    private void setListAdapter() {
-        adapter_cBoard = new Adapter_CBoard(getContext(), cBoardPresenter.selectSecondEntries());
-        listView.setAdapter(adapter_cBoard);
+    public void refreshElements(List<Pojo_Entry> pojo_entries) {
+        adapter_cBoard.updateElements(pojo_entries);
     }
 
     @Override

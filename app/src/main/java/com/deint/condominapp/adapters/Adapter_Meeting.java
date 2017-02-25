@@ -17,9 +17,15 @@ import java.util.List;
 public class Adapter_Meeting extends ArrayAdapter<Pojo_Meeting> {
     private Context context;
 
-    public Adapter_Meeting(Context context, List<Pojo_Meeting> pojo_meetings) {
-        super(context, R.layout.adapter_meeting, pojo_meetings);
+    public Adapter_Meeting(Context context) {
+        super(context, R.layout.adapter_meeting);
         this.context = context;
+    }
+
+    public void updateElements(List<Pojo_Meeting> pojo_meetings) {
+        this.clear();
+        this.addAll(pojo_meetings);
+        notifyDataSetChanged();
     }
 
     private class MeetingHolder {

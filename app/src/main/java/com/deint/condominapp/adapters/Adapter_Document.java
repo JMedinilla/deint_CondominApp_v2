@@ -18,9 +18,15 @@ import java.util.List;
 public class Adapter_Document extends ArrayAdapter<Pojo_Document> {
     private Context context;
 
-    public Adapter_Document(Context context, List<Pojo_Document> pojo_documents) {
-        super(context, R.layout.adapter_document, pojo_documents);
+    public Adapter_Document(Context context) {
+        super(context, R.layout.adapter_document);
         this.context = context;
+    }
+
+    public void updateElements(List<Pojo_Document> pojo_documents) {
+        this.clear();
+        this.addAll(pojo_documents);
+        notifyDataSetChanged();
     }
 
     private class DocumentHolder {

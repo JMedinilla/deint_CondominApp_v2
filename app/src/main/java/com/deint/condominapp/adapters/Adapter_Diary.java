@@ -18,9 +18,15 @@ import java.util.List;
 public class Adapter_Diary extends ArrayAdapter<Pojo_Note> {
     private Context context;
 
-    public Adapter_Diary(Context context, List<Pojo_Note> pojo_notes) {
-        super(context, R.layout.adapter_diary, pojo_notes);
+    public Adapter_Diary(Context context) {
+        super(context, R.layout.adapter_diary);
         this.context = context;
+    }
+
+    public void updateElements(List<Pojo_Note> pojo_notes) {
+        this.clear();
+        this.addAll(pojo_notes);
+        notifyDataSetChanged();
     }
 
     private class DiaryHolder {

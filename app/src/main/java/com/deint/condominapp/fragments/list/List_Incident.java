@@ -30,6 +30,8 @@ import com.deint.condominapp.pojos.Pojo_Incident;
 import com.deint.condominapp.presenters.IncidentPresenterImpl;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class List_Incident extends Fragment implements IIncidentPresenter.View {
     private FragmentListIncidentListener homeCallback;
 
@@ -63,7 +65,6 @@ public class List_Incident extends Fragment implements IIncidentPresenter.View {
         listView = (ListView) view.findViewById(R.id.fragListIncident_list);
 
         listView.setDivider(null);
-        setListAdapter();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,23 +84,29 @@ public class List_Incident extends Fragment implements IIncidentPresenter.View {
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adapter_incident = new Adapter_Incident(getContext());
+        listView.setAdapter(adapter_incident);
+
+        incidentPresenter.selectIncidents();
+    }
+
     /**
      * Method that recieves an element from the Activity and insert or update it
      *
      * @param incident Incident to handle
      * @param update   Boolean to know if the element has to be inserted or updated
-     * @return True or False depending on the succes of the operation
      */
-    public boolean recieveIncidentFromHome(Pojo_Incident incident, boolean update) {
-        boolean result = false;
+    public void recieveIncidentFromHome(Pojo_Incident incident, boolean update) {
         if (incidentPresenter.validateIncident(incident)) {
             if (update) {
-                result = incidentPresenter.updateIncident(incident) == 0;
+                incidentPresenter.updateIncident(incident);
             } else {
-                result = incidentPresenter.insertIncident(incident) == 0;
+                incidentPresenter.insertIncident(incident);
             }
         }
-        return result;
     }
 
     @Override
@@ -129,12 +136,7 @@ public class List_Incident extends Fragment implements IIncidentPresenter.View {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (incidentPresenter.deleteIncident(incident) == 0) {
-                            showMessage(R.string.deleted, false);
-                            setListAdapter();
-                        } else {
-                            showMessage(R.string.deleteError, true);
-                        }
+                        incidentPresenter.deleteIncident(incident);
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -175,12 +177,30 @@ public class List_Incident extends Fragment implements IIncidentPresenter.View {
         dialog.show();
     }
 
-    /**
-     * Method to set an adapter to the fragment list
-     */
-    private void setListAdapter() {
-        adapter_incident = new Adapter_Incident(getContext(), incidentPresenter.selectIncidents());
-        listView.setAdapter(adapter_incident);
+    public void refreshElements(List<Pojo_Incident> pojo_incidents) {
+        adapter_incident.updateElements(pojo_incidents);
+    }
+
+    @Override
+    public void insertResponse(boolean result) {
+        if (result) {
+            getActivity().onBackPressed();
+        }
+    }
+
+    @Override
+    public void updateResponse(boolean result) {
+        if (result) {
+            getActivity().onBackPressed();
+        }
+    }
+
+    @Override
+    public void deleteResponse(boolean result) {
+        if (result) {
+            getActivity().onBackPressed();
+            incidentPresenter.selectIncidents();
+        }
     }
 
     @Override

@@ -18,9 +18,15 @@ import java.util.List;
 public class Adapter_Board extends ArrayAdapter<Pojo_Entry> {
     private Context context;
 
-    public Adapter_Board(Context context, List<Pojo_Entry> pojo_entries) {
-        super(context, R.layout.adapter_board, pojo_entries);
+    public Adapter_Board(Context context) {
+        super(context, R.layout.adapter_board);
         this.context = context;
+    }
+
+    public void updateElements(List<Pojo_Entry> pojo_entries) {
+        this.clear();
+        this.addAll(pojo_entries);
+        notifyDataSetChanged();
     }
 
     private class BoardHolder {

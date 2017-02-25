@@ -8,7 +8,7 @@ import java.util.List;
  * Presenter for the notes
  */
 public interface IDiaryPresenter {
-    List<Pojo_Note> selectNotes();
+    void selectNotes();
 
     int insertNote(Pojo_Note note);
 
@@ -23,5 +23,7 @@ public interface IDiaryPresenter {
      */
     interface View {
         void showMessage(int msg, boolean error);
+
+        void refreshElements(List<Pojo_Note> pojo_notes);
     }
 }

@@ -1,5 +1,7 @@
 package com.deint.condominapp.presenters;
 
+import android.os.AsyncTask;
+
 import com.deint.condominapp.CondominappApplication;
 import com.deint.condominapp.R;
 import com.deint.condominapp.database.DatabaseManager_Meeting;
@@ -22,8 +24,24 @@ public class MeetingPresenterImpl implements IMeetingPresenter {
     /**
      * Method to get all meetings
      */
-    public List<Pojo_Meeting> selectMeetings() {
-        return DatabaseManager_Meeting.getInstance().getMeetings(profile.getUserCommunity());
+    public void selectMeetings() {
+        new AsyncTask<Void, Void, List<Pojo_Meeting>>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected List<Pojo_Meeting> doInBackground(Void... voids) {
+                return DatabaseManager_Meeting.getInstance().getMeetings(profile.getUserCommunity());
+            }
+
+            @Override
+            protected void onPostExecute(List<Pojo_Meeting> pojo_meetings) {
+                super.onPostExecute(pojo_meetings);
+                view.refreshElements(pojo_meetings);
+            }
+        }.execute();
     }
 
     @Override

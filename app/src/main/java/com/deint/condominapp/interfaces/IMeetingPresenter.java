@@ -8,7 +8,7 @@ import java.util.List;
  * Presenter for the meetings
  */
 public interface IMeetingPresenter {
-    List<Pojo_Meeting> selectMeetings();
+    void selectMeetings();
 
     int insertMeeting(Pojo_Meeting meeting);
 
@@ -23,5 +23,7 @@ public interface IMeetingPresenter {
      */
     interface View {
         void showMessage(int msg, boolean error);
+
+        void refreshElements(List<Pojo_Meeting> pojo_meetings);
     }
 }

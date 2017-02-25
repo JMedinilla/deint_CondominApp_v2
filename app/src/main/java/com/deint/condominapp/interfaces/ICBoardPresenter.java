@@ -8,7 +8,7 @@ import java.util.List;
  * Presenter for the entries
  */
 public interface ICBoardPresenter {
-    List<Pojo_Entry> selectSecondEntries();
+    void selectSecondEntries();
 
     int insertSecondEntry(Pojo_Entry entry);
 
@@ -23,5 +23,7 @@ public interface ICBoardPresenter {
      */
     interface View {
         void showMessage(int msg, boolean error);
+
+        void refreshElements(List<Pojo_Entry> pojo_entries);
     }
 }

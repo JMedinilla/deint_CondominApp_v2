@@ -27,6 +27,8 @@ import com.deint.condominapp.interfaces.IDocumentPresenter;
 import com.deint.condominapp.pojos.Pojo_Document;
 import com.deint.condominapp.presenters.DocumentPresenterImpl;
 
+import java.util.List;
+
 
 public class List_Document extends Fragment implements IDocumentPresenter.View {
     private FragmentListDocumentListener homeCallback;
@@ -61,7 +63,6 @@ public class List_Document extends Fragment implements IDocumentPresenter.View {
         listView = (ListView) view.findViewById(R.id.fragListDocument_list);
 
         listView.setDivider(null);
-        setListAdapter();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,14 +82,22 @@ public class List_Document extends Fragment implements IDocumentPresenter.View {
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adapter_document = new Adapter_Document(getContext());
+        listView.setAdapter(adapter_document);
+
+        documentPresenter.selectDocuments();
+    }
+
     /**
      * Method that recieves an element from the Activity and insert or update it
      *
      * @param document Document to handle
-     * @param update Boolean to know if the element has to be inserted or updated
-     * @return True or False depending on the succes of the operation
+     * @param update   Boolean to know if the element has to be inserted or updated
      */
-    public boolean recieveDocumentFromHome(Pojo_Document document, boolean update) {
+    public void recieveDocumentFromHome(Pojo_Document document, boolean update) {
         boolean result = false;
         if (documentPresenter.validateDocument(document)) {
             if (update) {
@@ -97,7 +106,9 @@ public class List_Document extends Fragment implements IDocumentPresenter.View {
                 result = documentPresenter.insertDocument(document) == 0;
             }
         }
-        return result;
+        if (result) {
+            getActivity().onBackPressed();
+        }
     }
 
     @Override
@@ -129,7 +140,7 @@ public class List_Document extends Fragment implements IDocumentPresenter.View {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (documentPresenter.deleteDocument(document) == 0) {
                             showMessage(R.string.deleted, false);
-                            setListAdapter();
+                            documentPresenter.selectDocuments();
                         } else {
                             showMessage(R.string.deleteError, true);
                         }
@@ -164,12 +175,8 @@ public class List_Document extends Fragment implements IDocumentPresenter.View {
         dialog.show();
     }
 
-    /**
-     * Method to set an adapter to the fragment list
-     */
-    private void setListAdapter() {
-        adapter_document = new Adapter_Document(getContext(), documentPresenter.selectDocuments());
-        listView.setAdapter(adapter_document);
+    public void refreshElements(List<Pojo_Document> pojo_documents) {
+        adapter_document.updateElements(pojo_documents);
     }
 
     @Override

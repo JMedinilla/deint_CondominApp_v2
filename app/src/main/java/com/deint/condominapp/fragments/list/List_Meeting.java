@@ -22,6 +22,8 @@ import com.deint.condominapp.interfaces.IMeetingPresenter;
 import com.deint.condominapp.pojos.Pojo_Meeting;
 import com.deint.condominapp.presenters.MeetingPresenterImpl;
 
+import java.util.List;
+
 public class List_Meeting extends Fragment implements IMeetingPresenter.View {
     private FragmentListMeetingListener homeCallback;
 
@@ -55,7 +57,6 @@ public class List_Meeting extends Fragment implements IMeetingPresenter.View {
         listView = (ListView) view.findViewById(R.id.fragListMeeting_list);
 
         listView.setDivider(null);
-        setListAdapter();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +77,15 @@ public class List_Meeting extends Fragment implements IMeetingPresenter.View {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adapter_meeting = new Adapter_Meeting(getContext());
+        listView.setAdapter(adapter_meeting);
+
+        meetingPresenter.selectMeetings();
+    }
+
+    @Override
     /**
      * Method to send a message to the Activity
      */
@@ -83,12 +93,8 @@ public class List_Meeting extends Fragment implements IMeetingPresenter.View {
         ((Activity_Home) getActivity()).showSnackbar(getString(msg), error);
     }
 
-    /**
-     * Method to set an adapter to the fragment list
-     */
-    private void setListAdapter() {
-        adapter_meeting = new Adapter_Meeting(getContext(), meetingPresenter.selectMeetings());
-        listView.setAdapter(adapter_meeting);
+    public void refreshElements(List<Pojo_Meeting> pojo_meetings) {
+        adapter_meeting.updateElements(pojo_meetings);
     }
 
     @Override

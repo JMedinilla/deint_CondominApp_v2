@@ -1,5 +1,7 @@
 package com.deint.condominapp.presenters;
 
+import android.os.AsyncTask;
+
 import com.deint.condominapp.CondominappApplication;
 import com.deint.condominapp.R;
 import com.deint.condominapp.database.DatabaseManager_Document;
@@ -22,8 +24,24 @@ public class DocumentPresenterImpl implements IDocumentPresenter {
     /**
      * Method to get all documents
      */
-    public List<Pojo_Document> selectDocuments() {
-        return DatabaseManager_Document.getInstance().getDocuments(profile.getUserCommunity());
+    public void selectDocuments() {
+        new AsyncTask<Void, Void, List<Pojo_Document>>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected List<Pojo_Document> doInBackground(Void... voids) {
+                return DatabaseManager_Document.getInstance().getDocuments(profile.getUserCommunity());
+            }
+
+            @Override
+            protected void onPostExecute(List<Pojo_Document> pojo_documents) {
+                super.onPostExecute(pojo_documents);
+                view.refreshElements(pojo_documents);
+            }
+        }.execute();
     }
 
     @Override

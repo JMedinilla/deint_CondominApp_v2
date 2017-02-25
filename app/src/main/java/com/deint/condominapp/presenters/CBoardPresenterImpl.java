@@ -1,5 +1,7 @@
 package com.deint.condominapp.presenters;
 
+import android.os.AsyncTask;
+
 import com.deint.condominapp.CondominappApplication;
 import com.deint.condominapp.R;
 import com.deint.condominapp.database.DatabaseManager_Entry;
@@ -22,8 +24,24 @@ public class CBoardPresenterImpl implements ICBoardPresenter {
     /**
      * Method to get all entries
      */
-    public List<Pojo_Entry> selectSecondEntries() {
-        return DatabaseManager_Entry.getInstance().getSecondEntries(profile.getUserCommunity());
+    public void selectSecondEntries() {
+        new AsyncTask<Void, Void, List<Pojo_Entry>>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected List<Pojo_Entry> doInBackground(Void... voids) {
+                return DatabaseManager_Entry.getInstance().getSecondEntries(profile.getUserCommunity());
+            }
+
+            @Override
+            protected void onPostExecute(List<Pojo_Entry> pojo_entries) {
+                super.onPostExecute(pojo_entries);
+                view.refreshElements(pojo_entries);
+            }
+        }.execute();
     }
 
     @Override

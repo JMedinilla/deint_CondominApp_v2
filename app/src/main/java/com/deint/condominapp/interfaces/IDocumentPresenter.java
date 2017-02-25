@@ -8,7 +8,7 @@ import java.util.List;
  * Presenter for the documents
  */
 public interface IDocumentPresenter {
-    List<Pojo_Document> selectDocuments();
+    void selectDocuments();
 
     int insertDocument(Pojo_Document document);
 
@@ -23,5 +23,7 @@ public interface IDocumentPresenter {
      */
     interface View {
         void showMessage(int msg, boolean error);
+
+        void refreshElements(List<Pojo_Document> pojo_documents);
     }
 }
