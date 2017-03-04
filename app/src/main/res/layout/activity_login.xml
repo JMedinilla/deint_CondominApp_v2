@@ -110,6 +110,7 @@
                 android:hint="@string/activity_login_edtKey"
                 android:inputType="text"
                 android:labelFor="@+id/login_main_edtKey"
+                android:text="moronlu18"
                 android:textColor="@color/colorPrimaryDark"
                 android:textColorHint="@color/colorAccent" />
 

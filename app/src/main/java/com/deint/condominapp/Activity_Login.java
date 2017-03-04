@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.deint.condominapp.database.DatabaseManager_User;
 import com.deint.condominapp.pojos.Pojo_User;
@@ -157,7 +158,8 @@ public class Activity_Login extends AppCompatActivity {
      * Method that executes a QR scan
      */
     private void qrCodeScan() {
-        startActivityForResult(new Intent(Activity_Login.this, Activity_QR.class), 0);
+        Toast.makeText(Activity_Login.this, "Todavía no :C", Toast.LENGTH_SHORT).show();
+        //startActivityForResult(new Intent(Activity_Login.this, Activity_QR.class), 0);
     }
 
     @Override
